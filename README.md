@@ -3,6 +3,20 @@ These are the steps for building and deploying the FabMob's trip planner locally
 
 Ideally these steps should be automatized, but we're not there yet.
 
+# Architecture
+The trip planner has three parts: OpenTripPlanner (backend), and otp-react-redux and planificateur-otp-proxy
+
+## OpenTripPlanner
+We use it as it is, and we try to keep it up to date
+
+# otp-react-redux
+This is with some modifications.
+
+## planificateur-otp-proxy
+The frontend communicates directly to the proxy. The proxy modify and forwards the requests to the backend. It modifies the responses and forward them to the frontend.
+
+Its goal is to avoid completely modifying OpenTripPlanner, which is a complex software, and to keep the modifications on for easing updates. 
+
 # Build Data
 These operations are expected to be executed locally.
 
@@ -194,6 +208,11 @@ systemctl start otp-proxy
 
 1. Clone the repository
 ``` shell
+# Install both otp-ui and otp-react-redux in the same folder
+git clone git@github.com:FabmobQC/otp-ui.git
+cd otp-ui
+yarn
+cd ..
 git clone git@github.com:FabmobQC/otp-react-redux.git
 ```
 
@@ -222,7 +241,11 @@ env YAML_CONFIG=/var/www/html/planificateur.fabmobqc.ca/otp-react-redux/config-f
 1. Clone the repository
 ``` shell
 mkdir -p /var/www/html/planificateur.fabmobqc.ca
-cd /var/www/html/planificateur.fabmobqc.ca
+cd /var/www/html/planificateur.fabmobqc.
+# Install both otp-ui and otp-react-redux in the same folder
+git clone git@github.com:FabmobQC/otp-ui.git
+yarn && yarn prepublish
+cd .. 
 git clone git@github.com:FabmobQC/otp-react-redux.git
 ```
 
