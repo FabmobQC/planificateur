@@ -111,7 +111,7 @@ cd "$cwd"
 # We use the FabMob's server as an example
 scp otp/graph.obj root@146.190.248.76:~/planificateur/otp
 scp otp/streetGraph.obj root@146.190.248.76:~/planificateur/otp
-scp otp/montreal-quebec.osm.pdf root@146.190.248.76:~/planificateur/otp
+scp otp/montreal-quebec.osm.pbf root@146.190.248.76:~/planificateur/otp
 ```
 
 3. Create a service  
