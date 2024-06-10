@@ -57,7 +57,7 @@ wget -O gtfs_exo-laurentides.zip https://exo.quebec/xdata/citla/google_transit.z
 wget -O gtfs_exo-haut-saint-laurent.zip https://exo.quebec/xdata/cithsl/google_transit.zip
 wget -O gtfs_exo-chambly-richelieu-carignan.zip http://www.exo.quebec/xdata/citcrc/google_transit.zip
 wget -O gtfs_exo-trains.zip https://www.rtm.quebec/xdata/trains/google_transit.zip
-wget -O gtfs_sts.zip https://gtfs.sts.qc.ca:8443/gtfs/client/GTFS_clients.zip
+wget -O gtfs_sts.zip https://gtfs.sts.qc.ca:8443/gtfs/client/GTFS_clients.zip # Optional
 curl -L -o GTFS_STL.zip https://stlaval.ca/datas/opendata/GTF_STL.zip # gives trouble with wget
 ```
 
@@ -67,9 +67,7 @@ Must be done manually: https://www.rtl-longueuil.qc.ca/fr-CA/donnees-ouvertes/fi
 3. Build GTFS for Boischatel and Côte-de-Beaupré
 [zenbus-to-gtfs](https://github.com/FabmobQC/zenbus-to-gtfs). You might need to ask for permissions to access the repository.
 
-4. Download GTFS for STS (optional)  
-https://gtfs.sts.qc.ca:8443/gtfs/client/  
-**Note the `agency_timezone` in agency.txt has the wrong value. It has to be replaced by `America/Montreal`.**
+4. For gtfs_sts, change `agency_timezone` in agency.txt. It has to be replaced by `America/Montreal`.
 
 ## Prepare OpenStreetMap data
 ``` shell
