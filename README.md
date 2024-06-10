@@ -77,6 +77,7 @@ sudo apt install osmium-tool
 # The bbox includes the area comprising Montreal and Quebec city.
 # It is done for performance.
 osmium extract --strategy complete_ways --bbox -74.7776,45.0009,-70.84150184496582,47.144541002415956 quebec-latest.osm.pbf -o montreal-quebec.osm.pbf
+mv montreal-quebec.osm.pbf otp
 ```
 
 ## Build
