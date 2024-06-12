@@ -46,6 +46,7 @@ Some links might require a VPN if accessed outside of Quebec.
 cd "$cwd/otp"
 wget https://www.stm.info/sites/default/files/gtfs/gtfs_stm.zip
 wget -O gtfs_rtc.zip https://cdn.rtcquebec.ca/Site_Internet/DonneesOuvertes/googletransit.zip
+wget https://www.stlevis.ca/sites/default/files/public/assets/gtfs/transit/gtfs_stlevis.zip
 wget -O gtfs_exo-sainte-julie.zip https://exo.quebec/xdata/omitsju/google_transit.zip
 wget -O gtfs_exo-terrebonne-mascouche.zip https://exo.quebec/xdata/mrclm/google_transit.zip
 wget -O gtfs_exo-assomption.zip https://exo.quebec/xdata/mrclasso/google_transit.zip
