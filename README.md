@@ -211,9 +211,11 @@ systemctl start otp-proxy
 # Install both otp-ui and otp-react-redux in the same folder
 git clone git@github.com:FabmobQC/otp-ui.git
 cd otp-ui
+git checkout fabmob
 yarn
 cd ..
 git clone git@github.com:FabmobQC/otp-react-redux.git
+git checkout fabmob
 ```
 
 2. Set proper host and port in config-fabmob.yml:
@@ -244,9 +246,11 @@ mkdir -p /var/www/html/planificateur.fabmobqc.ca
 cd /var/www/html/planificateur.fabmobqc.
 # Install both otp-ui and otp-react-redux in the same folder
 git clone git@github.com:FabmobQC/otp-ui.git
+git checkout fabmob
 yarn && yarn prepublish
 cd .. 
 git clone git@github.com:FabmobQC/otp-react-redux.git
+git checkout fabmob
 ```
 
 
