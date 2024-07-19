@@ -65,7 +65,7 @@ curl -L -o GTFS_STL.zip https://stlaval.ca/datas/opendata/GTF_STL.zip # gives tr
 2. Download GTFS for RTL
 Must be done manually: https://www.rtl-longueuil.qc.ca/fr-CA/donnees-ouvertes/fichiers-gtfs/. **The filename must be renamed to contain `gtfs`**
 
-3. Build GTFS for Boischatel and Côte-de-Beaupré
+3. Build GTFS for Boischatel, Charlevoix, Côte-de-Beaupré and Mont-Tremblant:
 [zenbus-to-gtfs](https://github.com/FabmobQC/zenbus-to-gtfs). You might need to ask for permissions to access the repository.
 
 4. For gtfs_sts, change `agency_timezone` in agency.txt. It has to be replaced by `America/Montreal`.
@@ -77,7 +77,7 @@ wget http://download.geofabrik.de/north-america/canada/quebec-latest.osm.pbf
 sudo apt install osmium-tool
 # The bbox includes the area comprising Montreal and Quebec city.
 # It is done for performance.
-osmium extract --strategy complete_ways --bbox -74.7776,45.0009,-70.84150184496582,47.144541002415956 quebec-latest.osm.pbf -o montreal-quebec.osm.pbf
+osmium extract --strategy complete_ways --bbox -74.7776,45.0009,-70.1,47.8 quebec-latest.osm.pbf -o montreal-quebec.osm.pbf
 mv montreal-quebec.osm.pbf otp
 ```
 
