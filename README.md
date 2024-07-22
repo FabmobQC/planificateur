@@ -66,7 +66,7 @@ curl -L -o GTFS_STL.zip https://stlaval.ca/datas/opendata/GTF_STL.zip # gives tr
 Must be done manually: https://www.rtl-longueuil.qc.ca/fr-CA/donnees-ouvertes/fichiers-gtfs/. **The filename must be renamed to contain `gtfs`**
 
 3. Build GTFS for Boischatel, Charlevoix, Côte-de-Beaupré and Mont-Tremblant:
-[zenbus-to-gtfs](https://github.com/FabmobQC/zenbus-to-gtfs). You might need to ask for permissions to access the repository.
+[gtfs-builders](https://github.com/FabmobQC/gtfs-builders). You might need to ask for permissions to access the repository.
 
 4. For gtfs_sts, change `agency_timezone` in agency.txt. It has to be replaced by `America/Montreal`.
 
