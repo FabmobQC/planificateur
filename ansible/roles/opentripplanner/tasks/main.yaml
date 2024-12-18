@@ -1,0 +1,42 @@
+- name: Install dependencies
+  ansible.builtin.package:
+    name: openjdk-21-jre
+    state: present
+
+- name: Create OTP folder
+  ansible.builtin.file:
+    path: "{{ planificateur_folder }}"
+    state: directory
+    mode: "400"
+
+- name: Create OTP data folder
+  ansible.builtin.file:
+    path: "{{ opentripplanner_data_folder }}"
+    state: directory
+    mode: "400"
+
+- name: Upload OTP data to the remote server
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ opentripplanner_data_folder }}"
+    mode: "400"
+  with_fileglob:
+    - "{{ opentripplanner_local_data_folder }}/*"
+  notify:
+    - Restart OTP
+
+- name: Download OTP
+  ansible.builtin.get_url:
+    url: "https://github.com/opentripplanner/OpenTripPlanner/releases/download/v{{ otp_version }}/otp-{{ otp_version }}-shaded.jar"
+    dest: "{{ opentripplanner_path }}"
+    mode: "400"
+  notify:
+    - Restart OTP
+
+- name: Create OTP service
+  ansible.builtin.template:
+    src: "otp.service.j2"
+    dest: "/etc/systemd/system/otp.service"
+    mode: "400"
+  notify:
+    - Restart OTP

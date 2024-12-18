@@ -1,0 +1,2 @@
+opentripplanner_path: "{{ planificateur_folder }}/otp.jar"
+opentripplanner_data_folder: "{{ planificateur_folder }}/data"

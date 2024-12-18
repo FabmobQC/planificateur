@@ -1,0 +1,10 @@
+---
+- name: Planificateur FabMob QC
+  hosts: planificateur
+  become: true
+  remote_user: root
+  roles:
+    - role: nginx
+      nginx_domain_name: "{{ inventory_hostname }}"
+      nginx_template_path: "files/nginx.j2"
+    - role: opentripplanner

@@ -1,0 +1,66 @@
+- name: Install nginx
+  ansible.builtin.package:
+    name: nginx
+    state: present
+
+- name: Allow Nginx Full
+  community.general.ufw:
+    rule: allow
+    name: "Nginx Full"
+
+- name: Check if the certificate exits (1)
+  ansible.builtin.stat:
+    path: "/etc/letsencrypt/live/{{ nginx_domain_name }}/fullchain.pem"
+  register: certificate_check
+
+- name: Deploy temporary nginx HTTP configuration for certbot
+  ansible.builtin.template:
+    src: "nginx_temporary_http.j2"
+    dest: "/etc/nginx/sites-available/{{ nginx_domain_name }}"
+    mode: "400"
+  when: not certificate_check.stat.exists
+
+- name: Create symbolic link for Nginx site
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/{{ nginx_domain_name }}
+    dest: /etc/nginx/sites-enabled/{{ nginx_domain_name }}
+    state: link
+
+- name: Ensure nginx configuration is active for certbot
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+  when: not certificate_check.stat.exists
+
+- name: Install certbot
+  community.general.snap:
+    state: present
+    classic: true
+    name:
+      - certbot
+
+- name: Create symbolic link for certbot
+  ansible.builtin.file:
+    src: /snap/bin/certbot
+    dest: /usr/bin/certbot
+    state: link
+
+- name: Install certificates
+  ansible.builtin.command:
+    cmd: "certbot certonly --nginx --non-interactive --agree-tos -m {{ certbot_email }} --domain {{ nginx_domain_name }}"
+    creates: "/etc/letsencrypt/live/{{ nginx_domain_name }}/fullchain.pem"
+  notify: Restart nginx
+
+- name: Check if the certificate exits (2)
+  ansible.builtin.stat:
+    path: "/etc/letsencrypt/live/{{ nginx_domain_name }}/fullchain.pem"
+  register: certificate_check
+
+- name: Deploy real nginx configuration
+  ansible.builtin.template:
+    src: "{{ nginx_template_path }}"
+    dest: "/etc/nginx/sites-available/{{ nginx_domain_name }}"
+    mode: "400"
+  when: certificate_check.stat.exists
+  notify:
+    - Restart nginx

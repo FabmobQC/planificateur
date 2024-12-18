@@ -1,0 +1,91 @@
+{
+    "otp_version": "2.6.0",
+    "project_name": "general",
+    "osm_data": {
+        "filename": "montreal-quebec.osm.pbf",
+        "base_filename": "quebec-latest.osm.pbf",
+        "url": "https://download.geofabrik.de/north-america/canada/quebec-latest.osm.pbf",
+        "bbox": {
+            "min_lon": -74.7776,
+            "min_lat": 45.0009,
+            "max_lon": -70.1,
+            "max_lat": 47.8
+        }
+    },
+    "gtfs_data": {
+        "timezone": "America/Montreal",
+        "infos": [
+            {
+                "filename": "gtfs_stm.zip",
+                "url": "https://www.stm.info/sites/default/files/gtfs/gtfs_stm.zip"
+            },
+            {
+                "filename": "gtfs_rtc.zip",
+                "url": "https://cdn.rtcquebec.ca/Site_Internet/DonneesOuvertes/googletransit.zip"
+            },
+            {
+                "filename": "gtfs_stlevis.zip",
+                "url": "https://www.stlevis.ca/sites/default/files/public/assets/gtfs/transit/gtfs_stlevis.zip"
+            },
+            {
+                "filename": "gtfs_exo-sainte-julie.zip",
+                "url": "https://exo.quebec/xdata/omitsju/google_transit.zip"
+            },
+            {
+                "filename": "gtfs_exo-terrebonne-mascouche.zip",
+                "url": "https://exo.quebec/xdata/mrclm/google_transit.zip"
+            },
+            {
+                "filename": "gtfs_exo-assomption.zip",
+                "url": "https://exo.quebec/xdata/mrclasso/google_transit.zip"
+            },
+            {
+                "filename": "gtfs_exo-vallee-du-richelieu.zip",
+                "url": "https://exo.quebec/xdata/citvr/google_transit.zip"
+            },
+            {
+                "filename": "gtfs_exo-sud-ouest.zip",
+                "url": "https://exo.quebec/xdata/citso/google_transit.zip"
+            },
+            {
+                "filename": "gtfs_exo-sorel-varennes.zip",
+                "url": "https://exo.quebec/xdata/citsv/google_transit.zip"
+            },
+            {
+                "filename": "gtfs_exo-presquile.zip",
+                "url": "https://exo.quebec/xdata/citpi/google_transit.zip"
+            },
+            {
+                "filename": "gtfs_exo-laurentides.zip",
+                "url": "https://exo.quebec/xdata/citla/google_transit.zip"
+            },
+            {
+                "filename": "gtfs_exo-haut-saint-laurent.zip",
+                "url": "https://exo.quebec/xdata/cithsl/google_transit.zip"
+            },
+            {
+                "filename": "gtfs_exo-chambly-richelieu-carignan.zip",
+                "url": "http://www.exo.quebec/xdata/citcrc/google_transit.zip"
+            },
+            {
+                "filename": "gtfs_exo-trains.zip",
+                "url": "https://www.rtm.quebec/xdata/trains/google_transit.zip"
+            },
+            {
+                "filename": "gtfs_sts.zip",
+                "url": "https://gtfs.sts.qc.ca:8443/gtfs/client/GTFS_clients.zip",
+                "is_timezone_incorrect": true
+            },
+            {
+                "filename": "gtfs_stl.zip",
+                "url": "https://stlaval.ca/datas/opendata/GTF_STL.zip",
+                "is_manual_download": true
+            },
+            {
+                "filename": "gtfs_rtl.zip",
+                "url": "https://www.rtl-longueuil.qc.ca/fr-CA/donnees-ouvertes/fichiers-gtfs/",
+                "is_manual_download": true
+            }
+        ]
+    }
+}

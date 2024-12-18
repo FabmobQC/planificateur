@@ -1,0 +1,13 @@
+- name: Install UFW
+  ansible.builtin.package:
+    name: ufw
+    state: present
+
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled
+
+- name: Allow SSH
+  community.general.ufw:
+    rule: allow
+    port: 22
