@@ -47,7 +47,9 @@ def generate_otp_data(
     project_folder = os.path.join(work_folder, project_name)
     osm_data_folder = os.path.join(project_folder, "osm_data")
     otp_input_folder = os.path.join(project_folder, "otp_input")
-    otp_output_folder = os.path.abspath(os.path.join(work_folder, config["output_folder"]))
+    otp_output_folder = os.path.abspath(
+        os.path.join(work_folder, config["output_folder"])
+    )
 
     print("Project name:", project_name)
     print("OTP path:", otp_path)

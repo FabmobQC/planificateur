@@ -60,7 +60,11 @@ def handle_fix_timezone(gtfs_path: str, timezone: str) -> None:
                         for row in rows:
                             row["agency_timezone"] = timezone
                         new_file = io.StringIO()
-                        fieldnames = csv_reader.fieldnames
+                        fieldnames = (
+                            csv_reader.fieldnames
+                            if csv_reader.fieldnames is not None
+                            else []
+                        )
                         csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
                         csv_writer.writeheader()
                         csv_writer.writerows(rows)

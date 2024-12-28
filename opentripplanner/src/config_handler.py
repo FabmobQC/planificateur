@@ -30,7 +30,7 @@ class ConfigGtfsData(TypedDict):
 
 class Config(TypedDict):
     project_name: str
-    output_folder: str # Relative to work_folder
+    output_folder: str  # Relative to work_folder
     osm_data: ConfigOsmData
     gtfs_data: ConfigGtfsData
 
