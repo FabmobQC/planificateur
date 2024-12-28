@@ -1,4 +1,6 @@
+import glob
 import os
+import shutil
 import subprocess
 
 from .config_handler import Config
@@ -45,17 +47,19 @@ def generate_otp_data(
     project_folder = os.path.join(work_folder, project_name)
     osm_data_folder = os.path.join(project_folder, "osm_data")
     otp_input_folder = os.path.join(project_folder, "otp_input")
-    otp_output_folder = os.path.join(project_folder, "otp_output")
+    otp_output_folder = os.path.abspath(os.path.join(work_folder, config["output_folder"]))
 
     print("Project name:", project_name)
     print("OTP path:", otp_path)
     print("Project folder:", project_folder)
+    print("Output folder:", otp_output_folder)
 
     osm_data_update_status = generate_osm_data(
         config["osm_data"], osm_data_folder, otp_input_folder
     )
     gtfs_data_update_status = handle_gtfs_data(config["gtfs_data"], otp_input_folder)
     statuses = [osm_data_update_status, gtfs_data_update_status]
+    print("statuses:", statuses)
     if force or (
         UpdateStatus.ERROR not in statuses and UpdateStatus.UPDATED in statuses
     ):
@@ -63,3 +67,10 @@ def generate_otp_data(
         launch_otp_build(otp_path, otp_input_folder)
         launch_otp_build_street(otp_path, otp_input_folder)
         launch_otp_load_street(otp_path, otp_input_folder)
+
+        print("Move generated files to output folder")
+        os.makedirs(otp_output_folder, exist_ok=True)
+        obj_files = glob.glob(os.path.join(otp_input_folder, "*.obj"))
+        for file in obj_files:
+            print(f"Moved: {file} -> {otp_output_folder}")
+            shutil.move(file, otp_output_folder)

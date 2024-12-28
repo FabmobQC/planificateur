@@ -19,8 +19,7 @@ def generate_osm_data(
 ) -> UpdateStatus:
     osm_base_path = os.path.join(osm_data_folder, config_osm_data["base_filename"])
     print("Download OSM data:", osm_base_path)
-    # update_status = download_file_if_newer(config_osm_data["url"], osm_base_path)
-    update_status = UpdateStatus.UPDATED
+    update_status = download_file_if_newer(config_osm_data["url"], osm_base_path)
     print("OSM data update status:", update_status)
 
     osm_base_mtime = os.path.getmtime(osm_base_path)

@@ -1,6 +1,6 @@
 {
-    "otp_version": "2.6.0",
     "project_name": "general",
+    "output_folder": "../../ansible/files/opentripplanner_data_general",
     "osm_data": {
         "filename": "montreal-quebec.osm.pbf",
         "base_filename": "quebec-latest.osm.pbf",
