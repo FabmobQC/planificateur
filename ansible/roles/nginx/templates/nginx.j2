@@ -1,7 +1,7 @@
 server {
-    server_name {{ inventory_hostname }};
+    server_name {{ domain_name }};
 
-    access_log /var/log/nginx/{{ inventory_hostname }}.access.log;
+    access_log /var/log/nginx/{{ domain_name }}.access.log;
 
     location / {
         proxy_set_header Host $host;
@@ -10,25 +10,25 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
 
-        proxy_pass http://localhost:8080;
+        proxy_pass {{ upstream_url }};
         proxy_read_timeout  90;
 
-        proxy_redirect http://localhost:8080 https://{{ inventory_hostname }};
+        proxy_redirect {{ upstream_url }} https://{{ domain_name }};
     }
 
     listen 443 ssl;
-    ssl_certificate /etc/letsencrypt/live/{{ inventory_hostname }}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/{{ inventory_hostname }}/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/{{ domain_name }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ domain_name }}/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 }
 
 server {
-    if ($host = {{ inventory_hostname }}) {
+    if ($host = {{ domain_name }}) {
         return 301 https://$host$request_uri;
     }
 
-    server_name {{ inventory_hostname }};
+    server_name {{ domain_name }};
     listen 80;
     return 404;
 }

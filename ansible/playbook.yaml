@@ -15,7 +15,7 @@
         name: nginx
       vars:
         nginx_domain_name: "{{ inventory_hostname }}"
-        nginx_template_path: "files/nginx.j2"
+        nginx_upstream_url: "http://localhost:8080"
 
     - name: Setup OpenTripPlanner
       ansible.builtin.include_role:
