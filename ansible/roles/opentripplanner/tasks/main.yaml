@@ -3,12 +3,6 @@
     name: openjdk-21-jre
     state: present
 
-- name: Create OTP folder
-  ansible.builtin.file:
-    path: "{{ planificateur_folder }}"
-    state: directory
-    mode: "400"
-
 - name: Create OTP data folder
   ansible.builtin.file:
     path: "{{ opentripplanner_data_folder }}"
