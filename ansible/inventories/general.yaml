@@ -1,7 +1,8 @@
 planificateur:
   hosts:
-    otp-api.dazadillon.io:
+    planificateur.dazadillon.io:
       certbot_email: "communications@fabmobqc.ca"
       otp_version: 2.6.0
       planificateur_folder: "/root/planificateur"
       opentripplanner_local_data_folder: "files/opentripplanner_data_general"
+      opentripplanner_api_domain: "otp-api.dazadillon.io"
