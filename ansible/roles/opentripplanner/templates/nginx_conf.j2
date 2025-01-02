@@ -1,0 +1,34 @@
+server {
+    server_name {{ opentripplanner_api_domain }};
+
+    access_log /var/log/nginx/{{ opentripplanner_api_domain }}.access.log;
+
+    location / {
+        proxy_set_header Host $host;
+
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_pass {{ opentripplanner_upstream_url }};
+        proxy_read_timeout  90;
+
+        proxy_redirect {{ opentripplanner_upstream_url }} https://{{ opentripplanner_api_domain }};
+    }
+
+    listen 443 ssl;
+    ssl_certificate /etc/letsencrypt/live/{{ opentripplanner_api_domain }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ opentripplanner_api_domain }}/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
+
+server {
+    if ($host = {{ opentripplanner_api_domain }}) {
+        return 301 https://$host$request_uri;
+    }
+
+    server_name {{ opentripplanner_api_domain }};
+    listen 80;
+    return 404;
+}

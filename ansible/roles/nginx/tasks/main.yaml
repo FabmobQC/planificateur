@@ -58,12 +58,9 @@
 
 - name: Deploy real nginx configuration
   ansible.builtin.template:
-    src: "nginx.j2"
+    src: "{{ nginx_conf_file }}"
     dest: "/etc/nginx/sites-available/{{ nginx_domain_name }}"
     mode: "400"
   when: certificate_check.stat.exists
-  vars:
-    domain_name: "{{ nginx_domain_name }}"
-    upstream_url: "{{ nginx_upstream_url }}"
   notify:
     - Restart nginx

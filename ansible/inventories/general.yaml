@@ -6,3 +6,4 @@ planificateur:
       planificateur_folder: "/root/planificateur"
       opentripplanner_local_data_folder: "files/opentripplanner_data_general"
       opentripplanner_api_domain: "otp-api.dazadillon.io"
+      opentripplanner_upstream_url: "http://localhost:8080"

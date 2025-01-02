@@ -10,13 +10,6 @@
         state: directory
         mode: "400"
 
-    - name: Setup nginx
-      ansible.builtin.include_role:
-        name: nginx
-      vars:
-        nginx_domain_name: "{{ opentripplanner_api_domain }}"
-        nginx_upstream_url: "http://localhost:8080"
-
     - name: Setup OpenTripPlanner
       ansible.builtin.include_role:
         name: opentripplanner
