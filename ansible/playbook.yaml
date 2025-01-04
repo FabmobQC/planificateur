@@ -3,6 +3,7 @@
   hosts: planificateur
   become: true
   remote_user: root
+  gather_facts: false
   tasks:
     - name: Create Planificateur folder
       ansible.builtin.file:
