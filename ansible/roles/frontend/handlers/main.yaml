@@ -1,0 +1,22 @@
+- name: Compile otp-ui # noqa: no-changed-when
+  ansible.builtin.command: "yarn prepublish"
+  args:
+    chdir: "{{ frontend_otp_ui_folder }}"
+  notify:
+    - Compile otp-react-redux
+
+- name: Compile otp-react-redux # noqa: no-changed-when
+  ansible.builtin.command: "yarn build"
+  args:
+    chdir: "{{ frontend_otp_react_redux_folder }}"
+  notify:
+    - Copy otp-react-redux to webroot
+
+- name: Copy otp-react-redux to webroot
+  ansible.builtin.copy:
+    src: "{{ frontend_otp_react_redux_folder }}/dist/"
+    dest: "{{ frontend_root }}"
+    remote_src: true
+    mode: "755"
+  notify:
+    - Restart nginx

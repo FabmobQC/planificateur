@@ -14,3 +14,9 @@
     - name: Setup OpenTripPlanner
       ansible.builtin.include_role:
         name: opentripplanner
+
+    - name: Setup frontend
+      ansible.builtin.include_role:
+        name: frontend
+      vars:
+        frontend_domain_name: "{{ inventory_hostname }}"

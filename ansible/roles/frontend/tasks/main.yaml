@@ -1,0 +1,49 @@
+- name: Install dependencies
+  ansible.builtin.package:
+    name:
+      - nodejs
+      - npm
+    state: present
+
+- name: Install Yarn
+  community.general.npm:
+    name: yarn
+    global: true
+
+- name: Handle FabMob's otp-ui
+  block:
+    - name: Download otp-ui
+      ansible.builtin.git:
+        repo: https://github.com/FabmobQC/otp-ui.git
+        dest: "{{ frontend_otp_ui_folder }}"
+        version: "7d5b9da017317d96413c8816691419e50e103422"
+        force: true
+      notify:
+        - Compile otp-ui
+
+    - name: Install otp-ui's dependencies.
+      community.general.yarn:
+        path: "{{ frontend_otp_ui_folder }}"
+
+- name: Handle FabMob's otp-react-redux
+  block:
+    - name: Download otp-react-redux
+      ansible.builtin.git:
+        repo: https://github.com/FabmobQC/otp-react-redux.git
+        dest: "{{ frontend_otp_react_redux_folder }}"
+        version: "14b1f4f9f444cf8dfe8c5d9aba53cd45be686a7e"
+        force: true
+      notify:
+        - Compile otp-react-redux
+
+    - name: Install otp-react-redux's dependencies.
+      community.general.yarn:
+        path: "{{ frontend_otp_react_redux_folder }}"
+
+- name: Setup nginx for frontend
+  ansible.builtin.include_role:
+    name: nginx
+  vars:
+    # role_dir would resolve to nginx directory
+    nginx_conf_file: "{{ playbook_dir }}/roles/frontend/templates/nginx_conf.j2"
+    nginx_domain_name: "{{ frontend_domain_name }}"
