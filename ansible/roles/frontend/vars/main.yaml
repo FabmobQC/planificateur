@@ -1,3 +1,4 @@
 frontend_otp_ui_folder: "{{ planificateur_folder }}/otp-ui"
 frontend_otp_react_redux_folder: "{{ planificateur_folder }}/otp-react-redux"
 frontend_root: "/var/www/html/{{ frontend_domain_name }}"
+frontend_config_path: "{{ planificateur_folder }}/otp-react-redux_config.yaml"

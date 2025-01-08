@@ -17,7 +17,6 @@
         repo: https://github.com/FabmobQC/otp-ui.git
         dest: "{{ frontend_otp_ui_folder }}"
         version: "7d5b9da017317d96413c8816691419e50e103422"
-        force: true
       notify:
         - Compile otp-ui
 
@@ -39,6 +38,14 @@
     - name: Install otp-react-redux's dependencies.
       community.general.yarn:
         path: "{{ frontend_otp_react_redux_folder }}"
+
+    - name: Deploy otp-react-redux configuration
+      ansible.builtin.template:
+        src: "{{ frontend_config_template_path }}"
+        dest: "{{ frontend_config_path }}"
+        mode: "755"
+      notify:
+        - Compile otp-react-redux
 
 - name: Setup nginx for frontend
   ansible.builtin.include_role:

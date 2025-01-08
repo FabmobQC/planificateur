@@ -7,6 +7,8 @@
 
 - name: Compile otp-react-redux # noqa: no-changed-when
   ansible.builtin.command: "yarn build"
+  environment:
+    YAML_CONFIG: "{{ frontend_config_path }}"
   args:
     chdir: "{{ frontend_otp_react_redux_folder }}"
   notify:
