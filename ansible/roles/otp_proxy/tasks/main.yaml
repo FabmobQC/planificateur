@@ -1,0 +1,35 @@
+- name: Install dependencies
+  ansible.builtin.package:
+    name:
+      - nodejs
+      - npm
+    state: present
+
+- name: Download otp-proxy
+  ansible.builtin.git:
+    repo: https://github.com/FabmobQC/planificateur-otp-proxy.git
+    dest: "{{ otp_proxy_folder }}"
+    version: "1d9a139513352718e8aa1b208e724b89ee5c9ed4"
+  notify:
+    - Compile otp-proxy
+
+- name: Create otp-proxy service
+  ansible.builtin.template:
+    src: "otp-proxy.service.j2"
+    dest: "/etc/systemd/system/otp-proxy.service"
+    mode: "400"
+  notify:
+    - Reload systemd
+    - Restart otp-proxy
+
+- name: Install otp-proxy's dependencies
+  community.general.npm:
+    path: "{{ otp_proxy_folder }}"
+
+- name: Setup nginx
+  ansible.builtin.include_role:
+    name: nginx
+  vars:
+    # role_dir would resolve to nginx directory
+    nginx_conf_file: "{{ playbook_dir }}/roles/otp_proxy/templates/nginx_conf.j2"
+    nginx_domain_name: "{{ opentripplanner_api_domain }}"

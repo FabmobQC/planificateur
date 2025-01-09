@@ -1,0 +1,20 @@
+/etc/systemd/system/otp-proxy.service
+[Unit]
+Description=Proxy for OpenTripPlanner
+
+[Service]
+Type=simple
+
+User=root
+Group=root
+UMask=007
+
+WorkingDirectory={{ otp_proxy_folder}}
+ExecStart=/usr/bin/node dist/index.js
+Restart=on-failure
+TimeoutStopSec=300
+Environment="TAXI_API_KEY={{ taxi_api_key }}"
+Environment="OTP_ADDRESS={{ opentripplanner_upstream_url }}"
+
+[Install]
+WantedBy=multi-user.target

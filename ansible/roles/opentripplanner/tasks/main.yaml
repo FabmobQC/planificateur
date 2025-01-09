@@ -34,11 +34,3 @@
     mode: "400"
   notify:
     - Restart OTP
-
-- name: Setup nginx
-  ansible.builtin.include_role:
-    name: nginx
-  vars:
-    # role_dir would resolve to nginx directory
-    nginx_conf_file: "{{ playbook_dir }}/roles/opentripplanner/templates/nginx_conf.j2"
-    nginx_domain_name: "{{ opentripplanner_api_domain }}"

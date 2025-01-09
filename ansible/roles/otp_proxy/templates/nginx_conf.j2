@@ -10,10 +10,10 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
 
-        proxy_pass {{ opentripplanner_upstream_url }};
+        proxy_pass {{ otp_proxy_upstream_url }};
         proxy_read_timeout  90;
 
-        proxy_redirect {{ opentripplanner_upstream_url }} https://{{ opentripplanner_api_domain }};
+        proxy_redirect {{ otp_proxy_upstream_url }} https://{{ opentripplanner_api_domain }};
     }
 
     listen 443 ssl;

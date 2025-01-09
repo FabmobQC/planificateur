@@ -1,0 +1,15 @@
+- name: Compile otp-proxy # noqa: no-changed-when
+  ansible.builtin.command: "npm run build"
+  args:
+    chdir: "{{ otp_proxy_folder }}"
+  notify:
+    - Restart otp-proxy
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Restart otp-proxy
+  ansible.builtin.service:
+    name: otp-proxy
+    state: restarted

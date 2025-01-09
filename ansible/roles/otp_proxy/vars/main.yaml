@@ -1,0 +1,1 @@
+otp_proxy_folder: "{{ planificateur_folder }}/otp-proxy"
