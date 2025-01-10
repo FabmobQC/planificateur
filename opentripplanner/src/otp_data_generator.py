@@ -74,5 +74,8 @@ def generate_otp_data(
         os.makedirs(otp_output_folder, exist_ok=True)
         obj_files = glob.glob(os.path.join(otp_input_folder, "*.obj"))
         for file in obj_files:
-            print(f"Moved: {file} -> {otp_output_folder}")
-            shutil.move(file, otp_output_folder)
+            filename = os.path.basename(file)
+            # shutil.move overwrite pre-existing files only if we give it full destination path
+            destination = os.path.join(otp_output_folder, filename)
+            print(f"Move: {file} -> {destination}")
+            shutil.move(file, destination)
