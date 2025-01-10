@@ -72,6 +72,11 @@
                 "url": "https://www.rtm.quebec/xdata/trains/google_transit.zip"
             },
             {
+                "filename": "gtfs_dmv.zip",
+                "url": "https://geomatique.drummondville.ca/GTFS/GTFS_DMV.zip",
+                "is_timezone_incorrect": true
+            },
+            {
                 "filename": "gtfs_sts.zip",
                 "url": "https://gtfs.sts.qc.ca:8443/gtfs/client/GTFS_clients.zip",
                 "is_timezone_incorrect": true
