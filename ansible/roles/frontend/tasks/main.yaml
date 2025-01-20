@@ -16,7 +16,7 @@
       ansible.builtin.git:
         repo: https://github.com/FabmobQC/otp-ui.git
         dest: "{{ frontend_otp_ui_folder }}"
-        version: "7d5b9da017317d96413c8816691419e50e103422"
+        version: "edd17628fe45fead7aa6ffe3d7e82a74b8029504"
       notify:
         - Compile otp-ui
 
@@ -30,7 +30,7 @@
       ansible.builtin.git:
         repo: https://github.com/FabmobQC/otp-react-redux.git
         dest: "{{ frontend_otp_react_redux_folder }}"
-        version: "14b1f4f9f444cf8dfe8c5d9aba53cd45be686a7e"
+        version: "5835e369c92e720d5406bce460de0e4259c5d060"
         force: true
       notify:
         - Compile otp-react-redux
