@@ -28,11 +28,17 @@ class ConfigGtfsData(TypedDict):
     infos: List[GtfsInfos]
 
 
+class JsonFile(TypedDict):
+    filename: str
+    content: dict
+
+
 class Config(TypedDict):
     project_name: str
     output_folder: str  # Relative to work_folder
     osm_data: ConfigOsmData
     gtfs_data: ConfigGtfsData
+    otp_configs: List[JsonFile]
 
 
 def open_config(config_path: str) -> Config:

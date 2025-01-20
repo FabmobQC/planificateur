@@ -1,9 +1,11 @@
 import glob
+import json
 import os
 import shutil
 import subprocess
+from typing import List
 
-from .config_handler import Config
+from .config_handler import Config, JsonFile
 from .gtfs_handler import handle_gtfs_data
 from .osm_data_handler import generate_osm_data
 from .update_status import UpdateStatus
@@ -40,6 +42,13 @@ def launch_otp_load_street(otp_path: str, otp_input_folder: str) -> None:
     subprocess.run(command, check=True)
 
 
+def make_otp_configs(otp_input_folder: str, otp_configs: List[JsonFile]) -> None:
+    for otp_config in otp_configs:
+        filename = otp_config["filename"]
+        with open(os.path.join(otp_input_folder, filename), "w") as file:
+            json.dump(otp_config["content"], file)
+
+
 def generate_otp_data(
     config: Config, otp_path: str, work_folder: str, force=False
 ) -> None:
@@ -55,6 +64,8 @@ def generate_otp_data(
     print("OTP path:", otp_path)
     print("Project folder:", project_folder)
     print("Output folder:", otp_output_folder)
+
+    make_otp_configs(otp_input_folder, config["otp_configs"])
 
     osm_data_update_status = generate_osm_data(
         config["osm_data"], osm_data_folder, otp_input_folder

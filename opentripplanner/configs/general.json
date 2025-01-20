@@ -6,10 +6,10 @@
         "base_filename": "quebec-latest.osm.pbf",
         "url": "https://download.geofabrik.de/north-america/canada/quebec-latest.osm.pbf",
         "bbox": {
-            "min_lon": -74.7776,
+            "min_lon": -79.51469048277475,
             "min_lat": 45.0009,
             "max_lon": -70.1,
-            "max_lat": 47.8
+            "max_lat": 48.5242243971568
         }
     },
     "gtfs_data": {
@@ -92,5 +92,15 @@
                 "is_manual_download": true
             }
         ]
-    }
+    },
+    "otp_configs": [
+        {
+            "filename": "otp-config.json",
+            "content": {
+                "otpFeatures": {
+                    "FlexRouting": true
+                }
+            }
+        }
+    ]
 }
