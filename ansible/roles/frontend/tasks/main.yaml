@@ -10,42 +10,33 @@
     name: yarn
     global: true
 
-- name: Handle FabMob's otp-ui
-  block:
-    - name: Download otp-ui
-      ansible.builtin.git:
-        repo: https://github.com/FabmobQC/otp-ui.git
-        dest: "{{ frontend_otp_ui_folder }}"
-        version: "edd17628fe45fead7aa6ffe3d7e82a74b8029504"
-      notify:
-        - Compile otp-ui
 
-    - name: Install otp-ui's dependencies.
-      community.general.yarn:
-        path: "{{ frontend_otp_ui_folder }}"
+- name: Download otp-ui
+  ansible.builtin.git:
+    repo: https://github.com/FabmobQC/otp-ui.git
+    dest: "{{ frontend_otp_ui_folder }}"
+    version: "edd17628fe45fead7aa6ffe3d7e82a74b8029504"
+  notify:
+    - Install otp-ui's dependencies
+    - Compile otp-ui
 
-- name: Handle FabMob's otp-react-redux
-  block:
-    - name: Download otp-react-redux
-      ansible.builtin.git:
-        repo: https://github.com/FabmobQC/otp-react-redux.git
-        dest: "{{ frontend_otp_react_redux_folder }}"
-        version: "5835e369c92e720d5406bce460de0e4259c5d060"
-        force: true
-      notify:
-        - Compile otp-react-redux
+- name: Download otp-react-redux
+  ansible.builtin.git:
+    repo: https://github.com/FabmobQC/otp-react-redux.git
+    dest: "{{ frontend_otp_react_redux_folder }}"
+    version: "5835e369c92e720d5406bce460de0e4259c5d060"
+    force: true
+  notify:
+    - Install otp-react-redux's dependencies
+    - Compile otp-react-redux
 
-    - name: Install otp-react-redux's dependencies.
-      community.general.yarn:
-        path: "{{ frontend_otp_react_redux_folder }}"
-
-    - name: Deploy otp-react-redux configuration
-      ansible.builtin.template:
-        src: "{{ frontend_config_template_path }}"
-        dest: "{{ frontend_config_path }}"
-        mode: "755"
-      notify:
-        - Compile otp-react-redux
+- name: Deploy otp-react-redux configuration
+  ansible.builtin.template:
+    src: "{{ frontend_config_template_path }}"
+    dest: "{{ frontend_config_path }}"
+    mode: "755"
+  notify:
+    - Compile otp-react-redux
 
 - name: Setup nginx for frontend
   ansible.builtin.include_role:
