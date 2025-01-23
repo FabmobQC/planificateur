@@ -35,7 +35,6 @@
     src: "{{ frontend_config_template_path }}"
     dest: "{{ frontend_config_path }}"
     mode: "755"
-  changed_when: true
   notify:
     - Compile otp-react-redux
 
