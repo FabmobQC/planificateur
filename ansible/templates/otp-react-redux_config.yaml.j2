@@ -20,7 +20,7 @@ api:
   # port: 3000
   v2: true
 
-# Determines if the header brand should be clickable or not. If set to true,
+# Determines if the header brand should be clickable or not. If set to true, 
 # clicking the header brand will go back to the main trip planner page and wipe out any
 # results.
 # brandClickable: true/false
@@ -51,15 +51,15 @@ api:
 #   mobile: BOTH_LOCATIONS_CHANGED
 #   default: ONE_LOCATION_CHANGED
 
-### If Terms of Service is hosted at an outside link, provide it here. If translations
-### are provided, host each translation by including the language code (eg. en-US, fr, es)
+### If Terms of Service is hosted at an outside link, provide it here. If translations 
+### are provided, host each translation by including the language code (eg. en-US, fr, es) 
 ### in the URL and use {locale} to represent the language in the link below
 # termsOfServiceLink:
 
 ### The default query parameters can be overridden be uncommenting this object.
 ### Note: the override values must be valid values within otp-ui's query-params.js
 # defaultQueryParams:
-#   maxWalkDistance: 3219 # 2 miles in meters
+#   walkSpeed: 1.34 # 3 mph in meters per second
 
 ### The persistence setting is used to enable the storage of places (home, work),
 ### recent searches/places, user overrides, and favorite stops.
@@ -72,10 +72,9 @@ api:
 persistence:
   enabled: true
   strategy: localStorage
-  ### This variable hides the "more info" link when accepting the terms of storage.
-  ### If no terms of storage page content is set, this removes an otherwise dead link
-  ### False is default in that if the value isn't set, the link isn't shown
-  # terms_of_storage: true
+  ### This variable defines the default state of the terms of storage checkbox.
+  ### Possible values: 'visible-unchecked' (default) | 'visible-checked' | 'hidden-unchecked' | 'hidden-checked'
+  # termsOfStorageDefault: 'visible-unchecked'
 
 ### If using the OTP Middleware to store user profiles
 ### with Auth0 as the authentication mechanism,
@@ -115,10 +114,17 @@ persistence:
 #        iconUrl: ''
 #        href: ''
 
+### These settings are only used for the field trip features.
+dateTime:
+  timeFormat: h:mm a
+  dateFormat: MM/dd/yyyy
+
 map:
   initLat: 46.4
   initLon: -72.5
   initZoom: 7
+  # autoFlyOnTripFormUpdate: false
+  # navigationControlPosition: "bottom-right"
   baseLayers:
     - name: Streets
       # These tiles are free to use, but not in production
@@ -171,7 +177,7 @@ map:
   #       font-family: Hind, sans-serif
   #       font-size: 18px
   #   disableFlexArc: true
-
+  
 
 # it is possible to leave out a geocoder config entirely. In that case only
 # GPS coordinates will be used when finding the origin/destination.
@@ -226,6 +232,8 @@ geocoder:
 
 # Use this mode config for the enhanced Transit+ config
 modes:
+  ### Optional number of itineraries to return by default - Defaults to 3.
+  # numItineraries: 3
   # Definition for the mode buttons to display in trip form
   modeButtons:
     - iconName: bus
@@ -234,6 +242,10 @@ modes:
       # List of modes to add to the query when this button is enabled
       modes:
         - mode: TRANSIT
+        - mode: FLEX
+          qualifier:  ACCESS
+        - mode: FLEX
+          qualifier: EGRESS
         - mode: FLEX
           qualifier: DIRECT
     - iconName: bicycle
@@ -314,12 +326,17 @@ modes:
         - value: 4
       default: 0.25
   transitModes:
+      # Mode can be a string or an array of strings.
     - mode: BUS
+      # When mode is an array an overrideMode must be provided.
+      # This specifies the displayed mode used for icon and URL param.
+      # overrideMode: BUS
       label: Bus
       # A mode color can be added, used throughout the application,
       # most notably in the enhanced stop viewer bubble
       color: blue
     - mode: SUBWAY
+      # For each GTFS mode, you can customize the label displayed in the UI.
       label: Metro
 
   # Potentially deprecated
@@ -381,6 +398,12 @@ itinerary:
   # Whether the plan first/previous/next/last buttons should be shown along with
   # plan trip itineraries.
   showPlanFirstLastButtons: false
+  # adds the 'about' and '~' prefixes to the duration of non transit legs and trip details panel
+  showApproximatePrefixAccessLegs: false
+  # Whether to show the effective date and time of alerts
+  showAlertEffectiveDateTimeText: true
+  # Show all walking legs regardless of distance
+  showAllWalkLegs: false
   # Filters out trips returned by OTP by default, unless specifically requested.
   # e.g. filters out walk-only itineraries if user has not explicitly asked for them.
   strictItineraryFiltering: false
@@ -389,6 +412,8 @@ itinerary:
   renderRouteNamesInBlocks: true
   # Whether the mode icons should be colored as well
   fillModeIcons: true
+  # Allow user to collapse alerts in itinerary body
+  allowUserAlertCollapsing: true
   # If multiple fares are returned by OTP, assign names to the fare keys here
   #fareKeyNameMap:
   #  regular: "Transit Fare"
@@ -400,6 +425,11 @@ itinerary:
   # List of OTP2 errors to not display. Can be a list
   # mutedErrors:
   #   - NO_TRANSIT_CONNECTION_IN_SEARCH_WINDOW
+
+  # List of OTP2 errors that should only be displayed alone, alongside no  
+  # other errors. 
+  # exclusiveErrors:
+  #   - NO_TRANSIT_CONNECTION
 
   # The following settings must be set to these values to use the new
   # "Metro" UI. The settings can be used without the Metro UI, but
@@ -437,19 +467,30 @@ itinerary:
   previewOverlay: false
   # Whether to add a OTP_RR_A11Y_ROUTING_ENABLED error to all itineraries with accessibility scores
   displayA11yError: false
+  # Whether to display itinerary info in the side of the preview or next to the departure times
+  showInlineItinerarySummary: false
+  # Whether to sync the sort type with the depart/arrive time in the date/time modal
+  syncSortWithDepartArrive: true
   # The sort option to use by default
   # Available sort options: 'BEST', 'DURATION', 'ARRIVALTIME', 'WALKTIME', 'COST', 'DEPARTURETIME'
   # defaultSort: "BEST" # Default
   # The sort options to display in the sort options list
   # If unset, will display all.
   # Available sort options: 'BEST', 'DURATION', 'ARRIVALTIME', 'WALKTIME', 'COST', 'DEPARTURETIME'
-  # sortModes:
+  # sortModes: 
   #   - 'BEST'
   #   - 'DURATION'
   #   - 'ARRIVALTIME'
   #   - 'WALKTIME'
   #   - 'COST'
   #   - 'DEPARTURETIME'
+  # In the batch itinerary UI, this setting will always show both departure/arrival times
+  alwaysShowBothTimes: false
+advancedSettingsPanel:
+  # Show button in advanced panel that allows users to save and return
+  saveAndReturnButton: true
+# Prevent users from selecting a single day for saving trips.
+disableSingleItineraryDays: false
 
 # The transitOperators key is a list of transit operators that can be used to
 # order transit agencies when sorting by route. Also, this can optionally
@@ -618,9 +659,9 @@ transitOperators:
 # popups:
 #   targets:
 #     testTarget: # To set a name for this target, create the i18n string "config.popups.testTarget"
-#       url: http://example.com/
+#       url: http://example.com/ 
 #       modal: false # Setting this to false always launches the popup as a browser popup
-#     secondTarget:
+#     secondTarget: 
 #       url: http://test.com/
 #       appendLocale: false # Defaults to true, if set to false otp-rr will not append the current i18n language to the popup URL.
 #   launchers:
@@ -674,6 +715,12 @@ language:
           agencyName: "Agency Name"
           phoneNumber: "Phone Number"
           agencyUrl: "Website"
+      AmenitiesViewer:
+        shortTitle: Amenities
+        legendEducation: Education
+        legendGroceryStore: Grocery Store
+        legendHealthCenter: Health Center
+        legendDefault: Others
       TouristicPlacesViewer:
         shortTitle: Touristic Places
         legendAttraction: Attraction
@@ -742,6 +789,12 @@ language:
           agencyName: "Nom de l'agence"
           phoneNumber: "Numéro de téléphone"
           agencyUrl: "Site web"
+      AmenitiesViewer:
+        shortTitle: Opportunités
+        legendEducation: Éducation
+        legendGroceryStore: Épicerie
+        legendHealthCenter: Centre de santé
+        legendDefault: Others
       TouristicPlacesViewer:
         shortTitle: Lieux touristiques
         legendAttraction: Attraction
@@ -801,22 +854,9 @@ localization:
 # onTimeThresholdSeconds: 60
 
 # stopViewer:
-#   # The radius (in meters) to use when searching for nearby stops and other
-#   # amenities (rental vehicles, park and rides) to show for the focused stop.
-#   nearbyRadius: 250
-#   # The max. number of departures to show for each trip pattern
-#   # in the stop viewer Next Arrivals mode
-#   # (defaults to 3 if unspecified).
-#   numberOfDepartures: 3
 #   # Whether to display block IDs with each departure in the schedule mode.
 #   # (defaults to false if unspecified).
 #   showBlockIds: false
-#   # Specifies the time window, in seconds, in which to search for next arrivals,
-#   # so that, for example, if it is Friday and a route does
-#   # not begin service again until Monday, we are showing its next
-#   # departure and it is not entirely excluded from display
-#   # (defaults to 2 days/172800s if unspecified).
-#   timeRange: 172800
 # routeViewer:
 #   # Whether to render routes within flex zones of a route's patterns. If set to true,
 #   # routes will not be rendered within flex zones.
@@ -825,8 +865,12 @@ localization:
 #   vehicleIconHighlight: true
 #   # Customize vehicle icon padding (the default iconPadding is 2px in otp-ui)
 #   vehicleIconPadding: 0
+#   # Remove vehicles from map that haven't sent an update in this number of seconds
+#   maxRealtimeVehicleAge: 60
 #   # Interval for refreshing vehicle positions
 #   vehiclePositionRefreshSeconds: 30 # defaults to 30 seconds.
+#   # Enable this to restrict listing to routes active within the last to next Sunday
+#   onlyShowCurrentServiceWeek: true
 
 # API key to make Mapillary API calls. These are used to show street imagery.
 # Mapillary calls these "Client Tokens". They can be created at https://www.mapillary.com/dashboard/developers
@@ -843,5 +887,20 @@ localization:
 # sessionTimeoutSeconds: 180
 
 # nearbyView:
+### Setting to use arrival time instead of departure time in the nearby view.
+#   useArrivalTime: true
 ### Setting to hide stops with no depatures in the nearby view.
 #   hideEmptyStops: true
+### What radius should the nearby query get results within? (in meters)
+#   radius: 600
+### Setting this to true will use the route viewer sort algorithm on routes
+#   useRouteViewSort: false
+### Setting this to false will hide the shadowey dot that appears when dragging the map
+#   showShadowDotOnMapDrag: false
+### In routes, this will always show the routeLongName before the headsign
+### !!! WARNING: in some feeds, this may show the long name twice. In some feeds, this may cause layout issues !!!
+#     alwaysShowLongName: false
+fabmob:
+  displayAmenities: {{ opentripplanner_display_amenities | default(false) }}
+  displayCommunautoStations: {{ opentripplanner_display_communauto_stations | default(false) }}
+  displayTouristicPlaces: {{ opentripplanner_display_touristic_places | default(false) }}

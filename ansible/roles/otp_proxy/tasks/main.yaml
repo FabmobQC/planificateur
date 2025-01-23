@@ -9,7 +9,7 @@
   ansible.builtin.git:
     repo: https://github.com/FabmobQC/planificateur-otp-proxy.git
     dest: "{{ otp_proxy_folder }}"
-    version: "1d9a139513352718e8aa1b208e724b89ee5c9ed4"
+    version: "1c707eb88a04242d6d157099d5bdd046667629ba"
   notify:
     - Compile otp-proxy
 

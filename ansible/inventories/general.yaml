@@ -7,5 +7,6 @@ planificateur:
       opentripplanner_local_data_folder: "files/opentripplanner_data_general"
       opentripplanner_api_domain: "otp-api.dazadillon.io"
       opentripplanner_upstream_url: "http://localhost:8080"
+      opentripplanner_display_amenities: true
       otp_proxy_upstream_url: "http://localhost:3000"
       frontend_config_template_path: "templates/otp-react-redux_config.yaml.j2"
