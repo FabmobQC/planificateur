@@ -1,11 +1,11 @@
 planificateur:
   hosts:
-    planificateur.dazadillon.io:
+    planmob.fabmobqc.ca:
       certbot_email: "communications@fabmobqc.ca"
       otp_version: 2.6.0
       planificateur_folder: "/root/planificateur"
       opentripplanner_local_data_folder: "files/opentripplanner_data_planmob"
-      opentripplanner_api_domain: "otp-api.dazadillon.io"
+      opentripplanner_api_domain: "api-otp.planmob.fabmobqc.ca"
       opentripplanner_upstream_url: "http://localhost:8080"
       opentripplanner_display_administrative_regions: true
       opentripplanner_display_amenities: true
