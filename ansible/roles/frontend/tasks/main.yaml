@@ -24,7 +24,7 @@
   ansible.builtin.git:
     repo: https://github.com/FabmobQC/otp-react-redux.git
     dest: "{{ frontend_otp_react_redux_folder }}"
-    version: "3644428bb59a65b732e30204c7ad5e8a1af4bc89"
+    version: "c0404ecb2292bca4814353d05f7709b96841857c"
     force: true
   notify:
     - Install otp-react-redux's dependencies
