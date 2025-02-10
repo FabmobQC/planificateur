@@ -522,56 +522,10 @@ transitOperators:
   # Fabmob tip: The actual agencyIds are received with a sort of index. ex: "1:plumobile-boischatel", "2:CITSO"
   # It is actually the name that is used to map the agencies with their routes.
   # In other words, the names have to match "agency_name" in the GTFS, even when there are typos.
-  - agencyId: MRCLASSO
-    name: exo-L'Assomption
-    logo: https://www.droit-inc.com/img/trackers/731a8faccb56947b6ade4d85d7cebc6d
-  - agencyId: CITCRC
-    name: exo-Chambly-Richelieu-Carignan
-  - agencyId: CITHSL
-    name: exo-Haut-Saint-Laurent
-  - agencyId: CITLA
-    name: exo-Laurentides
-  - agencyId: CITPI
-    name: exo-La Presqu'île
-  - agencyId: OMITSJU
-    name: exo-Sainte-Julie
-  - agencyId: CITSV
-    name: exo-Sorel-Varennes
-  - agencyId: CITSO
-    name: exo-Sud-Ouest
-  - agencyId: MRCLM
-    name: exo-Terrebonne-Mascouche
-  - agencyId: TRAINS
-    name: exo-Réseau de transport métropolitain
-  - agencyId: CITVR
-    name: exo-Vallée du Richelieu
-  - agencyId: tacl-laurentides
-    name: L'Inter des Laurentides - Mont-Tremblant / Saint-Jérôme
-  - agencyId: mobilite-charlevoix
-    name: Mobilité Collective - Charlevoix
-  - agencyId: mrcjacques-cartier
-    name: MRC de La Jacques-Cartier
-  - agencyId: navette-nature
-    name: Navette Nature
-  - agencyId: RTC
-    name: Réseau de transport de la capitale (RTC)
-  - agencyId: RTL
-    name: Réseau de transport de Longueuil
-  - agencyId: STL
-    name: Societe de transport de Laval # Fabmob tip: Make sure the name matches "agency_name" in the GTFS before fixing the diacritics (Société)
-  - agencyId: 0
-    name: Société de transport de Lévis
-  - agencyId: STM
-    name: "Société de transport de Montréal"
-    logo: https://www.stm.info/sites/all/themes/stm/img/header-logo.png
-  - agencyId: 0
-    name: Société de Transport de Sherbrooke
-  - agencyId: 1
-    name: Service opéré par Taxis de Sherbrooke
-  - agencyId: plumobile-boischatel
-    name: Boischatel / PLUMobile - Transport en commun
-  - agencyId: plumobile-cote-de-beaupre
-    name: Côte-de-Beaupré / Ile d'Orléans - PLUmobile
+{% for agency in agencies %}
+  - agencyId: {{ agency.agencyId }}
+    name: {{ agency.name }}
+{% endfor %}
 #   - feedId: TriMet
 #     agencyId: PSC
 #     logo: https://d2tyb7byn1fef9.cloudfront.net/psc.png
@@ -904,4 +858,5 @@ fabmob:
   displayAdministrativeRegions: {{ opentripplanner_display_administrative_regions | default(false) }}
   displayAmenities: {{ opentripplanner_display_amenities | default(false) }}
   displayCommunautoStations: {{ opentripplanner_display_communauto_stations | default(false) }}
+  displayNearby: {{ opentripplanner_display_nearby | default(false) }}
   displayTouristicPlaces: {{ opentripplanner_display_touristic_places | default(false) }}

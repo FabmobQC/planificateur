@@ -11,3 +11,44 @@ planificateur:
       opentripplanner_display_amenities: true
       otp_proxy_upstream_url: "http://localhost:3000"
       frontend_config_template_path: "templates/otp-react-redux_config.yaml.j2"
+      agencies:
+        - agencyId: Ville de Rouyn-Noranda
+          name: Ville de Rouyn-Noranda
+        - agencyId: TACT
+          name: Transport adapté
+        - agencyId: VdO
+          name: Taxibus Val-d'Or
+        - agencyId: 1
+          name: Transport des personnes MRC de Bécancour
+        - agencyId: DMV
+          name: Ville de Drummondville
+        - agencyId: mobilibus
+          name: Mobilibus - Transport collectif dans la MRC de Drummond
+        - agencyId: TCME
+          name: Transport Collectif de l’Érable
+        - agencyId: Municar
+          name: Municar
+        - agencyId: Municar
+          name: Municar
+        - agencyId: Bili
+          name: Bili
+        - agencyId: victo
+          name: Taxibus_Victoriaville
+        - agencyId: ARG
+          name: MRC_ARGENTEUIL
+        - agencyId: ARGTC
+          name: MRC Argenteuil
+        - agencyId: CITLA
+          name: exo-Laurentides
+        - agencyId: TRAINS
+          name: exo-Réseau de transport métropolitain
+        - agencyId: Transport en commun de Mont-Tremblant
+          name: Transport en commun de Mont-Tremblant
+        - agencyId: TAC RN
+          name: Transport adapté et collectif de la MRC Rivière-du-Nord
+        - agencyId: SMT
+          name: Centre d'entraide la samaritaine de Mont-Tremblant
+        - agencyId: TACAL
+          name: Transport adapté et collectif d'Antoine-Labelle
+        - agencyId: TACL
+          name: TACL
