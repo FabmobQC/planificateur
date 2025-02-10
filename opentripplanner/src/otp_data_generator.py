@@ -50,7 +50,7 @@ def make_otp_configs(otp_input_folder: str, otp_configs: List[JsonFile]) -> None
 
 
 def generate_otp_data(
-    config: Config, otp_path: str, work_folder: str, force=False
+    config: Config, otp_path: str, work_folder: str, force=True
 ) -> None:
     project_name = config["project_name"]
     project_folder = os.path.join(work_folder, project_name)
@@ -83,8 +83,9 @@ def generate_otp_data(
 
         print("Move generated files to output folder")
         os.makedirs(otp_output_folder, exist_ok=True)
+        config_files = glob.glob(os.path.join(otp_input_folder, "*.json"))
         obj_files = glob.glob(os.path.join(otp_input_folder, "*.obj"))
-        for file in obj_files:
+        for file in [*config_files, *obj_files]:
             filename = os.path.basename(file)
             # shutil.move overwrite pre-existing files only if we give it full destination path
             destination = os.path.join(otp_output_folder, filename)
