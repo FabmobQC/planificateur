@@ -16,27 +16,19 @@
         "timezone": "America/Montreal",
         "infos": [
             {
-                "filename": "gtfs_rouyn-noranda.zip",
+                "filename": "gtfs_argenteuil_taxibus_flex.zip",
                 "url": "https://github.com/FabmobQC/vecteur5_gtfs",
                 "is_manual_download": true
+
             },
             {
-                "filename": "gtfs_tact.zip",
+                "filename": "gtfs_argenteuil.zip",
                 "url": "https://github.com/FabmobQC/vecteur5_gtfs",
                 "is_manual_download": true
-            },
-            {
-                "filename": "gtfs_valdor_taxibus_flex.zip",
-                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
-                "is_manual_download": true
+
             },
             {
                 "filename": "gtfs_becancour.zip",
-                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
-                "is_manual_download": true
-            },
-            {
-                "filename": "gtfs_drummondville.zip",
                 "url": "https://github.com/FabmobQC/vecteur5_gtfs",
                 "is_manual_download": true
             },
@@ -46,42 +38,12 @@
                 "is_manual_download": true
             },
             {
+                "filename": "gtfs_drummondville.zip",
+                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
+                "is_manual_download": true
+            },
+            {
                 "filename": "gtfs_erable.zip",
-                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
-                "is_manual_download": true
-            },
-            {
-                "filename": "gtfs_municar.zip",
-                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
-                "is_manual_download": true
-            },
-            {
-                "filename": "gtfs_municar_flex.zip",
-                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
-                "is_manual_download": true
-            },
-            {
-                "filename": "gtfs_nicolet_yamaska.zip",
-                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
-                "is_manual_download": true
-            },
-            {
-                "filename": "gtfs_victoriaville_taxibus_flex.zip",
-                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
-                "is_manual_download": true
-            },
-            {
-                "filename": "gtfs_argenteuil.zip",
-                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
-                "is_manual_download": true
-            },
-            {
-                "filename": "gtfs_argenteuil_taxibus_flex.zip",
-                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
-                "is_manual_download": true
-            },
-            {
-                "filename": "gtfs_exo.zip",
                 "url": "https://github.com/FabmobQC/vecteur5_gtfs",
                 "is_manual_download": true
             },
@@ -91,12 +53,41 @@
                 "is_manual_download": true
             },
             {
+                "filename": "gtfs_exo.zip",
+                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
+                "is_manual_download": true
+            },
+            {
                 "filename": "gtfs_mont-tremblant.zip",
                 "url": "https://github.com/FabmobQC/vecteur5_gtfs",
                 "is_manual_download": true
             },
             {
+                "filename": "gtfs_municar_flex.zip",
+                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
+                "is_manual_download": true
+            },
+            {
+                "filename": "gtfs_municar.zip",
+                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
+                "is_manual_download": true
+            },
+            {
+                "filename": "gtfs_nicolet_yamaska.zip",
+                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
+                "is_manual_download": true
+            },
+            {
+                "filename": "gtfs_rdn_flex.zip",
+                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
+                "is_manual_download": true
+            },
+            {
                 "filename": "gtfs_rdn.zip",
+                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
+                "is_manual_download": true
+            },{
+                "filename": "gtfs_rouyn-noranda.zip",
                 "url": "https://github.com/FabmobQC/vecteur5_gtfs",
                 "is_manual_download": true
             },
@@ -112,6 +103,21 @@
             },
             {
                 "filename": "gtfs_tacl.zip",
+                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
+                "is_manual_download": true
+            },
+            {
+                "filename": "gtfs_tact.zip",
+                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
+                "is_manual_download": true
+            },
+            {
+                "filename": "gtfs_valdor_taxibus_flex.zip",
+                "url": "https://github.com/FabmobQC/vecteur5_gtfs",
+                "is_manual_download": true
+            },
+            {
+                "filename": "gtfs_victoriaville_taxibus_flex.zip",
                 "url": "https://github.com/FabmobQC/vecteur5_gtfs",
                 "is_manual_download": true
             }
