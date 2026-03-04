@@ -26,8 +26,9 @@ def generate_osm_data(
 
     print("Extract bbox from OSM data")
     osm_bbox_path = os.path.join(osm_data_folder, f"bbox-{config_osm_data["filename"]}")
+    osm_bbox_exists = os.path.exists(osm_bbox_path)
     osm_bbox_mtime = getmtime(osm_bbox_path)
-    if osm_base_mtime > osm_bbox_mtime:
+    if not osm_bbox_exists or osm_base_mtime > osm_bbox_mtime:
         extract_osm_bbox(osm_base_path, osm_bbox_path, config_osm_data["bbox"])
         update_status = UpdateStatus.UPDATED
     else:
@@ -37,8 +38,9 @@ def generate_osm_data(
     osm_filtered_path = os.path.join(
         osm_data_folder, f"filtered-{config_osm_data["filename"]}"
     )
+    osm_filtered_exists = os.path.exists(osm_filtered_path)
     osm_filtered_mtime = getmtime(osm_filtered_path)
-    if osm_bbox_mtime > osm_filtered_mtime:
+    if not osm_filtered_exists or osm_bbox_mtime > osm_filtered_mtime:
         filter_osm(osm_bbox_path, osm_filtered_path)
         update_status = UpdateStatus.UPDATED
     else:
