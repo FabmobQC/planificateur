@@ -50,7 +50,7 @@ def make_otp_configs(otp_input_folder: str, otp_configs: List[JsonFile]) -> None
 
 
 def generate_otp_data(
-    config: Config, otp_path: str, work_folder: str, force=True
+    config: Config, otp_path: str, work_folder: str, force=False
 ) -> None:
     project_name = config["project_name"]
     project_folder = os.path.join(work_folder, project_name)
