@@ -65,6 +65,10 @@ def generate_otp_data(
     print("Project folder:", project_folder)
     print("Output folder:", otp_output_folder)
 
+    os.makedirs(project_folder, exist_ok=True)
+    os.makedirs(otp_input_folder, exist_ok=True)
+    os.makedirs(otp_output_folder, exist_ok=True)
+
     make_otp_configs(otp_input_folder, config["otp_configs"])
 
     osm_data_update_status = generate_osm_data(
