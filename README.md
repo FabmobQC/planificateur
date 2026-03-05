@@ -15,7 +15,7 @@ This is with some modifications.
 ## planificateur-otp-proxy
 The frontend communicates directly to the proxy. The proxy modify and forwards the requests to the backend. It modifies the responses and forward them to the frontend.
 
-Its goal is to avoid completely modifying OpenTripPlanner, which is a complex software, and to keep the modifications on for easing updates. 
+Its goal is to avoid completely modifying OpenTripPlanner, which is a complex software, and to keep the modifications on for easing updates.
 
 # Build Data
 These operations are expected to be executed locally.
@@ -32,7 +32,7 @@ cwd=$(pwd)
 ## Install OpenTripPlanner
 ``` shell
 cd "$cwd"
-wget https://github.com/opentripplanner/OpenTripPlanner/releases/download/v2.5.0/otp-2.5.0-shaded.jar
+wget https://github.com/opentripplanner/OpenTripPlanner/releases/download/v2.8.1/otp-shaded-2.8.1.jar -O otp.jar
 apt install openjdk-21-jre
 # Select version 21
 sudo update-alternatives --config java
@@ -88,9 +88,9 @@ Note these operations require a lot of RAM. This is the reason we do it locally.
 
 ```shell
 cd "$cwd"
-java -Xmx8G -jar otp-2.5.0-shaded.jar --build --save otp
-java -Xmx8G -jar otp-2.5.0-shaded.jar --buildStreet otp
-java -Xmx8G -jar otp-2.5.0-shaded.jar --loadStreet --save otp
+java -Xmx8G -jar otp.jar --build --save otp
+java -Xmx8G -jar otp.jar --buildStreet otp
+java -Xmx8G -jar otp.jar --loadStreet --save otp
 ```
 
 # Deploy
@@ -100,7 +100,7 @@ java -Xmx8G -jar otp-2.5.0-shaded.jar --loadStreet --save otp
 ### Locally
 ``` shell
 cd "$cwd"
-java -Xmx8G -jar otp-2.5.0-shaded.jar --load otp
+java -Xmx8G -jar otp.jar --load otp
 ```
 
 ### Production
@@ -112,34 +112,34 @@ java -Xmx8G -jar otp-2.5.0-shaded.jar --load otp
 # Commands are executed locally
 cd "$cwd"
 # We use the FabMob's server as an example
-scp otp/graph.obj root@146.190.248.76:~/planificateur/otp
-scp otp/streetGraph.obj root@146.190.248.76:~/planificateur/otp
-scp otp/montreal-quebec.osm.pbf root@146.190.248.76:~/planificateur/otp
+scp otp/graph.obj root@planificateur.fabmobqc.ca:~/planificateur/otp
+scp otp/streetGraph.obj root@planificateur.fabmobqc.ca:~/planificateur/otp
+scp otp/montreal-quebec.osm.pbf root@planificateur.fabmobqc.ca:~/planificateur/otp
 ```
 
-3. Create a service  
+3. Create a service
 ``` shell
 # Command is executed on the server
 cat << EOF > `/etc/systemd/system/otp.service`
 [Unit]
 Description=Planificateur FabmobQC.ca OpenTripPlanner Grizzli server
 After=network-online.target
- 
+
 [Service]
 Type=simple
- 
+
 User=root
 Group=root
 UMask=007
- 
-ExecStart=java -Xmx2G -jar /root/planificateur/otp-2.5.0-shaded.jar --load /root/planificateur/otp
-#ExecStart=/bin/docker run -it --rm -p 8080:8080 -v "/root/planificateur/otp:/var/opentripplanner" docker.io/opentripplanner/opentripplanner:2.4.0_2023-04-28T08-35 --load --serve 
+
+ExecStart=java -Xmx2G -jar /root/planificateur/otp.jar --load /root/planificateur/otp
+#ExecStart=/bin/docker run -it --rm -p 8080:8080 -v "/root/planificateur/otp:/var/opentripplanner" docker.io/opentripplanner/opentripplanner:2.4.0_2023-04-28T08-35 --load --serve
 
 Restart=on-failure
- 
+
 # Configures the time to wait before service is stopped forcefully.
 TimeoutStopSec=300
- 
+
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -174,7 +174,7 @@ git clone git@github.com:FabmobQC/planificateur-otp-proxy.git
 npm run build
 ```
 
-3. Create a service  
+3. Create a service
 ``` shell
 cat << EOF > /etc/systemd/system/otp-proxy.service
 [Unit]
@@ -193,7 +193,7 @@ Restart=on-failure
 
 # Configures the time to wait before service is stopped forcefully.
 TimeoutStopSec=300
- 
+
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -214,7 +214,7 @@ systemctl start otp-proxy
 git clone git@github.com:FabmobQC/otp-ui.git
 cd otp-ui
 git checkout fabmob
-yarn
+pnpm install && pnpm pack-all
 cd ..
 git clone git@github.com:FabmobQC/otp-react-redux.git
 git checkout fabmob
@@ -249,8 +249,8 @@ cd /var/www/html/planificateur.fabmobqc.
 # Install both otp-ui and otp-react-redux in the same folder
 git clone git@github.com:FabmobQC/otp-ui.git
 git checkout fabmob
-yarn && yarn prepublish
-cd .. 
+pnpm install && pnpm pack-all
+cd ..
 git clone git@github.com:FabmobQC/otp-react-redux.git
 git checkout fabmob
 ```
