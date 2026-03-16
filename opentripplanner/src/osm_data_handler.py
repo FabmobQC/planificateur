@@ -34,22 +34,10 @@ def generate_osm_data(
     else:
         print("Skip")
 
-    print("Filter OSM data")
-    osm_filtered_path = os.path.join(
-        osm_data_folder, f"filtered-{config_osm_data["filename"]}"
-    )
-    osm_filtered_exists = os.path.exists(osm_filtered_path)
-    osm_filtered_mtime = getmtime(osm_filtered_path)
-    if not osm_filtered_exists or osm_bbox_mtime > osm_filtered_mtime:
-        filter_osm(osm_bbox_path, osm_filtered_path)
-        update_status = UpdateStatus.UPDATED
-    else:
-        print("Skip")
-
     if update_status == UpdateStatus.UPDATED:
         print("Copy OSM data to OTP input folder")
         osm_final_path = os.path.join(otp_input_folder, config_osm_data["filename"])
-        shutil.copy(osm_filtered_path, osm_final_path)
+        shutil.copy(osm_bbox_path, osm_final_path)
     return update_status
 
 
@@ -69,6 +57,7 @@ def extract_osm_bbox(input_osm_path: str, output_path: str, bbox: BorderBox) -> 
     subprocess.run(command, check=True)
 
 
+# This breaks walking, cycling and car trips
 def filter_osm(input_osm_path: str, output_path: str) -> None:
     command = [
         "osmium",
