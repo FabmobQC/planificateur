@@ -1,7 +1,6 @@
 # To use OTP-RR with your own OTP deployment, at a minimum you will need to set the
 # host and port under the api section (for example to http://localhost and 8080).
-# The v2 configuration item here refers to OTP 2.x, not a versioned API with base URLs
-# ending in v2. OTP v1 is no longer supported by OTP-RR, so leave this v2 item enabled.
+# OTP v2.x is assumed. OTP v1 is no longer supported by OTP-RR.
 # The bare minimum additional things to configure in sections below are:
 # The initLat, initLon, and  baseLayers in the 'map' section;
 # The apiKey, boundary, focus point, and baseUrl in the 'geocoder' section;
@@ -20,7 +19,10 @@ api:
   # port: 3000
   v2: true
 
-# Determines if the header brand should be clickable or not. If set to true, 
+### This setting makes the UI display metric units.
+units: metric
+
+# Determines if the header brand should be clickable or not. If set to true,
 # clicking the header brand will go back to the main trip planner page and wipe out any
 # results.
 # brandClickable: true/false
@@ -95,6 +97,8 @@ persistence:
 ### If a Top level menu item contains submenu items (children) then use the 'children' flag.
 ### Icon URL is preferable over iconType. If none are given then a 'bus' iconType is used.
 #App menu
+### If set to true, a google translate suffix will be appended to the URL of external links for the active locale. For example, if the app is open in Spanish, the external URL will open with /#googtrans(es)
+translateExternalLinks: false
 #extraMenuItems:
 #  - id: link-list
 #    label: List of Links
@@ -125,6 +129,9 @@ map:
   initZoom: 7
   # autoFlyOnTripFormUpdate: false
   # navigationControlPosition: "bottom-right"
+
+  # Enable the following option to show the endpoints popup even with persistence disabled
+  # forceDisplayEndpointsPopup: false
   baseLayers:
     - name: Streets
       # These tiles are free to use, but not in production
@@ -344,9 +351,8 @@ modes:
 #   - mode: BICYCLE
 #     label: Transit + Bike
 
-# # The following modules require the datastoreUrl and trinetReDirect properties
-# # to be set. Note: Most of these components are currently only configured for
-# # TriMet.
+# # The following modules require the datastoreUrl to be set.
+# # trinetReDirect is optional, however omitting it requires pre-configured sessions.
 # datastoreUrl: https://localhost:9000
 # trinetReDirect: https://localhost:9001
 # modules:
@@ -392,6 +398,18 @@ routingTypes:
 
 # Itinerary options
 itinerary:
+  # Provides an array of valid mode combinations that returned itineraries will be filtered against
+  # If left blank, all itineraries deemed valid by OTP will be returned
+  # validModeCombinations: [ 
+  #   ['WALK'],
+  #   ['WALK', 'PERSONAL'],
+  #   ['WALK', 'TRANSIT', 'SHARED'],
+  #   ['WALK', 'SHARED'],
+  #   ['WALK', 'TRANSIT'],
+  #   ['WALK', 'TRANSIT', 'PERSONAL'],
+  #   ['WALK', 'TRANSIT', 'CAR'],
+  #   ['CAR'] 
+  # ]
   # Show fares for each transit leg (false if omitted).
   # (Requires using LineItinerary.)
   showRouteFares: false
@@ -414,12 +432,8 @@ itinerary:
   fillModeIcons: true
   # Allow user to collapse alerts in itinerary body
   allowUserAlertCollapsing: true
-  # If multiple fares are returned by OTP, assign names to the fare keys here
-  #fareKeyNameMap:
-  #  regular: "Transit Fare"
-  #  electronicRegular: "SmartCard Fare"
-  #  student: "Student Fare"
-  # One fare will always be shown by default
+  # The medium and rider category selected here will be used to render the total itinerary fare
+  # when there is only room to display a single fare.
   defaultFareType: { mediumId: null, riderCategoryId: null }
 
   # List of OTP2 errors to not display. Can be a list
@@ -467,6 +481,10 @@ itinerary:
   previewOverlay: false
   # Whether to add a OTP_RR_A11Y_ROUTING_ENABLED error to all itineraries with accessibility scores
   displayA11yError: false
+  # Whether to add OTP_RR_MICROBILITY_SUBJECT_TO_CHANGE error to all searches that include micromobiity rental.
+  displayMicromobilityRentalError: false
+  # Whether to add a OTP_RR_TRIP_IN_PAST error to all itineraries which have an itinerary that ends in the past
+  displayTripInPastError: true
   # Whether to display itinerary info in the side of the preview or next to the departure times
   showInlineItinerarySummary: false
   # Whether to sync the sort type with the depart/arrive time in the date/time modal
@@ -671,12 +689,15 @@ language:
           agencyUrl: "Website"
       AmenitiesViewer:
         shortTitle: Amenities
+        showAmenities: Show
+        legendCommunauto: Communauto
         legendEducation: Education
         legendGroceryStore: Grocery Store
         legendHealthCenter: Health Center
         legendDefault: Others
       TouristicPlacesViewer:
         shortTitle: Touristic Places
+        showTouristicPlaces: Show
         legendAttraction: Attraction
         legendCulture: Culture
         legendAccommodation: Accommodation
@@ -731,7 +752,7 @@ language:
         standard: Standard
         minivan: Minivan
         special: Véhicule adapté
-      
+
     components:
       AddPlaceButton:
         tooManyPlaces: Nombre max. de destinations atteint
@@ -745,12 +766,15 @@ language:
           agencyUrl: "Site web"
       AmenitiesViewer:
         shortTitle: Opportunités
+        showAmenities: Afficher
+        legendCommunauto: Communauto
         legendEducation: Éducation
         legendGroceryStore: Épicerie
         legendHealthCenter: Centre de santé
         legendDefault: Others
       TouristicPlacesViewer:
         shortTitle: Lieux touristiques
+        showTouristicPlaces: Afficher
         legendAttraction: Attraction
         legendCulture: Culture
         legendAccommodation: Hébergement
@@ -815,6 +839,10 @@ localization:
 #   # Whether to render routes within flex zones of a route's patterns. If set to true,
 #   # routes will not be rendered within flex zones.
 #   hideRouteShapesWithinFlexZones: true
+#   # Setting to sort routes by the number of vehicles on each pattern
+#   sortRoutePatternsByVehicleCount: true
+#   # Whether to use the route color as the pattern viewer background
+#   useRouteColorAsBackground: true
 #   # Disable vehicle highlight if necessary (e.g. custom or inverted icons)
 #   vehicleIconHighlight: true
 #   # Customize vehicle icon padding (the default iconPadding is 2px in otp-ui)
@@ -857,6 +885,5 @@ localization:
 fabmob:
   displayAdministrativeRegions: {{ opentripplanner_display_administrative_regions | default(false) }}
   displayAmenities: {{ opentripplanner_display_amenities | default(false) }}
-  displayCommunautoStations: {{ opentripplanner_display_communauto_stations | default(false) }}
   displayNearby: {{ opentripplanner_display_nearby | default(false) }}
   displayTouristicPlaces: {{ opentripplanner_display_touristic_places | default(false) }}

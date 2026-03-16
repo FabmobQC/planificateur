@@ -21,7 +21,7 @@
 
 - name: Download OTP
   ansible.builtin.get_url:
-    url: "https://github.com/opentripplanner/OpenTripPlanner/releases/download/v{{ otp_version }}/otp-{{ otp_version }}-shaded.jar"
+    url: "https://github.com/opentripplanner/OpenTripPlanner/releases/download/v{{ otp_version }}/otp-shaded-{{ otp_version }}.jar"
     dest: "{{ opentripplanner_path }}"
     mode: "400"
   notify:

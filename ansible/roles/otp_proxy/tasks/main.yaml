@@ -1,15 +1,26 @@
-- name: Install dependencies
-  ansible.builtin.package:
-    name:
-      - nodejs
-      - npm
-    state: present
+- name: Install Node.js
+  block:
+    - name: Download NodeSource setup script
+      ansible.builtin.get_url:
+        url: https://deb.nodesource.com/setup_20.x
+        dest: /tmp/nodesource_setup.sh
+        mode: "755"
+
+    - name: Run NodeSource setup script
+      ansible.builtin.command:
+        cmd: /tmp/nodesource_setup.sh
+        creates: /etc/apt/sources.list.d/nodesource.list
+
+    - name: Install Node.js 20
+      ansible.builtin.package:
+        name: nodejs
+        state: present
 
 - name: Download otp-proxy
   ansible.builtin.git:
     repo: https://github.com/FabmobQC/planificateur-otp-proxy.git
     dest: "{{ otp_proxy_folder }}"
-    version: "08548e017e8eab6f50fe2b1e033f92d0532ab935"
+    version: "54f7d4437ce068b75d603a53cb77a35697d04bb0"
   notify:
     - Compile otp-proxy
 

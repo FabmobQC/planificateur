@@ -11,14 +11,14 @@
 - name: Check if the certificate exits (1)
   ansible.builtin.stat:
     path: "/etc/letsencrypt/live/{{ nginx_domain_name }}/fullchain.pem"
-  register: certificate_check
+  register: nginx_certificate_check
 
 - name: Deploy temporary nginx HTTP configuration for certbot
   ansible.builtin.template:
     src: "nginx_temporary_http.j2"
     dest: "/etc/nginx/sites-available/{{ nginx_domain_name }}"
     mode: "400"
-  when: not certificate_check.stat.exists
+  when: not nginx_certificate_check.stat.exists
 
 - name: Create symbolic link for Nginx site
   ansible.builtin.file:
@@ -30,7 +30,7 @@
   ansible.builtin.service:
     name: nginx
     state: restarted
-  when: not certificate_check.stat.exists
+  when: not nginx_certificate_check.stat.exists
 
 - name: Install certbot
   community.general.snap:
@@ -54,13 +54,13 @@
 - name: Check if the certificate exits (2)
   ansible.builtin.stat:
     path: "/etc/letsencrypt/live/{{ nginx_domain_name }}/fullchain.pem"
-  register: certificate_check
+  register: nginx_certificate_check
 
 - name: Deploy real nginx configuration
   ansible.builtin.template:
     src: "{{ nginx_conf_file }}"
     dest: "/etc/nginx/sites-available/{{ nginx_domain_name }}"
     mode: "400"
-  when: certificate_check.stat.exists
+  when: nginx_certificate_check.stat.exists
   notify:
     - Restart nginx

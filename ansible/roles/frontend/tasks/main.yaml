@@ -1,21 +1,37 @@
-- name: Install dependencies
-  ansible.builtin.package:
-    name:
-      - nodejs
-      - npm
-    state: present
+- name: Install Node.js
+  block:
+    - name: Download NodeSource setup script
+      ansible.builtin.get_url:
+        url: https://deb.nodesource.com/setup_20.x
+        dest: /tmp/nodesource_setup.sh
+        mode: "755"
+
+    - name: Run NodeSource setup script
+      ansible.builtin.command:
+        cmd: /tmp/nodesource_setup.sh
+        creates: /etc/apt/sources.list.d/nodesource.list
+
+    - name: Install Node.js 20
+      ansible.builtin.package:
+        name: nodejs
+        state: present
 
 - name: Install Yarn
   community.general.npm:
     name: yarn
     global: true
 
+- name: Install pnpm
+  community.general.npm:
+    name: pnpm
+    version: "10.9.0"
+    global: true
 
 - name: Download otp-ui
   ansible.builtin.git:
     repo: https://github.com/FabmobQC/otp-ui.git
     dest: "{{ frontend_otp_ui_folder }}"
-    version: "edd17628fe45fead7aa6ffe3d7e82a74b8029504"
+    version: "e5ac412f1eef57bfc35e98275cad2d6013d51322"
   notify:
     - Install otp-ui's dependencies
     - Compile otp-ui
@@ -24,7 +40,7 @@
   ansible.builtin.git:
     repo: https://github.com/FabmobQC/otp-react-redux.git
     dest: "{{ frontend_otp_react_redux_folder }}"
-    version: "4f0ef32c0e97db5ea83194dfa43109e5edef7e9a"
+    version: "c887fb4e25e26e6f5aa64a047f2050ff471c1050"
     force: true
   notify:
     - Install otp-react-redux's dependencies

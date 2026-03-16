@@ -1,0 +1,66 @@
+planificateur:
+  hosts:
+    planificateur.fabmobqc.ca:
+      certbot_email: "communications@fabmobqc.ca"
+      otp_version: 2.8.1
+      planificateur_folder: "/root/planificateur"
+      opentripplanner_local_data_folder: "files/opentripplanner_data_general"
+      opentripplanner_api_domain: "www.api-otp.fabmobqc.ca"
+      opentripplanner_upstream_url: "http://localhost:8080"
+      opentripplanner_display_administrative_regions: true
+      opentripplanner_display_amenities: true
+      opentripplanner_display_nearby: true
+      opentripplanner_display_touristic_places: true
+
+      otp_proxy_upstream_url: "http://localhost:3000"
+      frontend_config_template_path: "templates/otp-react-redux_config.yaml.j2"
+      agencies:
+        - agencyId: MRCLASSO
+          name: exo-L'Assomption
+        - agencyId: CITCRC
+          name: exo-Chambly-Richelieu-Carignan
+        - agencyId: CITHSL
+          name: exo-Haut-Saint-Laurent
+        - agencyId: CITLA
+          name: exo-Laurentides
+        - agencyId: CITPI
+          name: exo-La Presqu'île
+        - agencyId: OMITSJU
+          name: exo-Sainte-Julie
+        - agencyId: CITSV
+          name: exo-Sorel-Varennes
+        - agencyId: CITSO
+          name: exo-Sud-Ouest
+        - agencyId: MRCLM
+          name: exo-Terrebonne-Mascouche
+        - agencyId: TRAINS
+          name: exo-Réseau de transport métropolitain
+        - agencyId: CITVR
+          name: exo-Vallée du Richelieu
+        - agencyId: tacl-laurentides
+          name: L'Inter des Laurentides - Mont-Tremblant / Saint-Jérôme
+        - agencyId: mobilite-charlevoix
+          name: Mobilité Collective - Charlevoix
+        - agencyId: mrcjacques-cartier
+          name: MRC de La Jacques-Cartier
+        - agencyId: navette-nature
+          name: Navette Nature
+        - agencyId: RTC
+          name: Réseau de transport de la capitale (RTC)
+        - agencyId: RTL
+          name: Réseau de transport de Longueuil
+        - agencyId: STL
+          name: Societe de transport de Laval # Fabmob tip: Make sure the name matches "agency_name" in the GTFS before fixing the diacritics (Société)
+        - agencyId: 0
+          name: Société de transport de Lévis
+        - agencyId: STM
+          name: "Société de transport de Montréal"
+          logo: https://www.stm.info/sites/all/themes/stm/img/header-logo.png
+        - agencyId: 0
+          name: Société de Transport de Sherbrooke
+        - agencyId: 1
+          name: Service opéré par Taxis de Sherbrooke
+        - agencyId: plumobile-boischatel
+          name: Boischatel / PLUMobile - Transport en commun
+        - agencyId: plumobile-cote-de-beaupre
+          name: Côte-de-Beaupré / Ile d'Orléans - PLUmobile

@@ -1,17 +1,33 @@
 - name: Install otp-ui's dependencies
-  community.general.yarn:
-    path: "{{ frontend_otp_ui_folder }}"
+  ansible.builtin.command: pnpm install
+  args:
+    chdir: "{{ frontend_otp_ui_folder }}"
+  changed_when: true
 
 - name: Compile otp-ui # noqa: no-changed-when
-  ansible.builtin.command: "yarn prepublish"
+  ansible.builtin.command: "pnpm prepublish"
   args:
     chdir: "{{ frontend_otp_ui_folder }}"
   notify:
-    - Compile otp-react-redux
+    - Pack otp-ui
+
+- name: Pack otp-ui # noqa: no-changed-when
+  ansible.builtin.command: "pnpm pack"
+  args:
+    chdir: "{{ item }}"
+  loop:
+    - "{{ frontend_otp_ui_folder }}/packages/endpoints-overlay"
+    - "{{ frontend_otp_ui_folder }}/packages/itinerary-body"
+    - "{{ frontend_otp_ui_folder }}/packages/location-field"
+    - "{{ frontend_otp_ui_folder }}/packages/location-icon"
+  notify:
+    - Install otp-react-redux's dependencies
 
 - name: Install otp-react-redux's dependencies
   community.general.yarn:
     path: "{{ frontend_otp_react_redux_folder }}"
+  notify:
+    - Compile otp-react-redux
 
 - name: Compile otp-react-redux # noqa: no-changed-when
   ansible.builtin.command: "yarn build"
