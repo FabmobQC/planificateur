@@ -124,9 +124,9 @@ dateTime:
   dateFormat: MM/dd/yyyy
 
 map:
-  initLat: 46.4
-  initLon: -72.5
-  initZoom: 7
+  initLat: {{ opentripplanner_init_lat | default(46.4) }}
+  initLon: {{ opentripplanner_init_lon | default(-72.5) }}
+  initZoom: {{ opentripplanner_init_zoom | default(7) }}
   # autoFlyOnTripFormUpdate: false
   # navigationControlPosition: "bottom-right"
 

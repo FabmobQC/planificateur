@@ -1,0 +1,28 @@
+planificateur:
+  hosts:
+    planificateur.fabmobqc.ca:
+      certbot_email: "communications@fabmobqc.ca"
+      otp_version: 2.8.1
+      planificateur_folder: "/root/planificateur"
+      opentripplanner_local_data_folder: "files/opentripplanner_data_quebec-city"
+      opentripplanner_api_domain: "www.api-otp.fabmobqc.ca"
+      opentripplanner_upstream_url: "http://localhost:8080"
+      opentripplanner_display_administrative_regions: true
+      opentripplanner_display_amenities: true
+      opentripplanner_display_nearby: true
+      opentripplanner_display_touristic_places: true
+      opentripplanner_init_lat: 46.85
+      opentripplanner_init_lon: -71.15
+      opentripplanner_init_zoom: 9
+
+      otp_proxy_upstream_url: "http://localhost:3000"
+      frontend_config_template_path: "templates/otp-react-redux_config.yaml.j2"
+      agencies:
+        - agencyId: RTC
+          name: Réseau de transport de la capitale (RTC)
+        - agencyId: 0
+          name: Société de transport de Lévis
+        - agencyId: plumobile-boischatel
+          name: Boischatel / PLUMobile - Transport en commun
+        - agencyId: plumobile-cote-de-beaupre
+          name: Côte-de-Beaupré / Ile d'Orléans - PLUmobile

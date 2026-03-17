@@ -1,0 +1,58 @@
+{
+    "project_name": "quebec-city",
+    "output_folder": "../../ansible/files/opentripplanner_data_quebec-city",
+    "osm_data": {
+        "filename": "quebec-city.osm.pbf",
+        "base_filename": "quebec-latest.osm.pbf",
+        "url": "https://download.geofabrik.de/north-america/canada/quebec-latest.osm.pbf",
+        "bbox": {
+            "min_lon": -71.72,
+            "min_lat": 46.53,
+            "max_lon": -70.73,
+            "max_lat": 47.20
+        }
+    },
+    "gtfs_data": {
+        "timezone": "America/Montreal",
+        "infos": [
+            {
+                "filename": "gtfs_rtc.zip",
+                "url": "https://cdn.rtcquebec.ca/Site_Internet/DonneesOuvertes/googletransit.zip"
+            },
+            {
+                "filename": "gtfs_stlevis.zip",
+                "url": "https://www.stlevis.ca/sites/default/files/public/assets/gtfs/transit/gtfs_stlevis.zip"
+            },
+            {
+                "filename": "gtfs_boischatel.zip",
+                "url": "https://github.com/FabmobQC/gtfs-builders/",
+                "is_manual_download": true
+            },
+            {
+                "filename": "gtfs_charlevoix.zip",
+                "url": "https://github.com/FabmobQC/gtfs-builders/",
+                "is_manual_download": true
+            },
+            {
+                "filename": "gtfs_cote-de-beaupre.zip",
+                "url": "https://github.com/FabmobQC/gtfs-builders/",
+                "is_manual_download": true
+            },
+            {
+                "filename": "gtfs_tacl-laurentides.zip",
+                "url": "https://github.com/FabmobQC/gtfs-builders/",
+                "is_manual_download": true
+            }
+        ]
+    },
+    "otp_configs": [
+        {
+            "filename": "otp-config.json",
+            "content": {
+                "otpFeatures": {
+                    "FlexRouting": true
+                }
+            }
+        }
+    ]
+}
