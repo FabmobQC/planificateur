@@ -29,17 +29,7 @@
                 "is_manual_download": true
             },
             {
-                "filename": "gtfs_charlevoix.zip",
-                "url": "https://github.com/FabmobQC/gtfs-builders/",
-                "is_manual_download": true
-            },
-            {
                 "filename": "gtfs_cote-de-beaupre.zip",
-                "url": "https://github.com/FabmobQC/gtfs-builders/",
-                "is_manual_download": true
-            },
-            {
-                "filename": "gtfs_tacl-laurentides.zip",
                 "url": "https://github.com/FabmobQC/gtfs-builders/",
                 "is_manual_download": true
             }
