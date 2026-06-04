@@ -1,7 +1,43 @@
-- name: Install dependencies
-  ansible.builtin.package:
-    name: openjdk-21-jre
-    state: present
+- name: Install Java 25
+  block:
+    - name: Ensure /opt/java/jdk-25 exists
+      file:
+        path: /opt/java/jdk-25
+        state: directory
+        mode: '0755'
+
+    - name: Download OpenJDK 25
+      get_url:
+        url: https://api.adoptium.net/v3/binary/latest/25/ga/linux/x64/jdk/hotspot/normal/eclipse
+        dest: /tmp/openjdk25.tar.gz
+
+    - name: Extract OpenJDK 25
+      unarchive:
+        src: /tmp/openjdk25.tar.gz
+        dest: /opt/java/jdk-25
+        remote_src: yes
+        extra_opts:
+          - --strip-components=1
+        creates: /opt/java/jdk-25/NOTICE
+
+    - name: Set JAVA_HOME
+      copy:
+        dest: /etc/profile.d/java.sh
+        content: |
+          export JAVA_HOME=/opt/java/jdk-25
+          export PATH=$JAVA_HOME/bin:$PATH
+        mode: '0755'
+
+    - name: Register Java 25 as alternative
+      alternatives:
+        name: java
+        path: /opt/java/jdk-25/bin/java
+        priority: 2000
+
+    - name: Set Java 25 as default
+      alternatives:
+        name: java
+        path: /opt/java/jdk-25/bin/java
 
 - name: Create OTP data folder
   ansible.builtin.file:

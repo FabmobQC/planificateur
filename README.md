@@ -32,9 +32,9 @@ cwd=$(pwd)
 ## Install OpenTripPlanner
 ``` shell
 cd "$cwd"
-wget https://github.com/opentripplanner/OpenTripPlanner/releases/download/v2.8.1/otp-shaded-2.8.1.jar -O otp.jar
-apt install openjdk-21-jre
-# Select version 21
+wget https://github.com/opentripplanner/OpenTripPlanner/releases/download/v2.9.0/otp-shaded-2.9.0.jar -O otp.jar
+apt install openjdk-25-jre
+# Select version 25
 sudo update-alternatives --config java
 ```
 ## Download GTFS

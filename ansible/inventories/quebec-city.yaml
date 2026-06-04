@@ -2,7 +2,7 @@ planificateur:
   hosts:
     planificateur.fabmobqc.ca:
       certbot_email: "communications@fabmobqc.ca"
-      otp_version: 2.8.1
+      otp_version: 2.9.0
       planificateur_folder: "/root/planificateur"
       opentripplanner_local_data_folder: "files/opentripplanner_data_quebec-city"
       opentripplanner_api_domain: "www.api-otp.fabmobqc.ca"
