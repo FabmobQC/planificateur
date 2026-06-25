@@ -1,0 +1,24 @@
+planificateur:
+  hosts:
+    planificateur.fabmobqc.ca:
+      certbot_email: "communications@fabmobqc.ca"
+      otp_version: 2.9.0
+      planificateur_folder: "/root/planificateur"
+      opentripplanner_local_data_folder: "files/opentripplanner_data_estrie"
+      opentripplanner_api_domain: "www.api-otp.fabmobqc.ca"
+      opentripplanner_upstream_url: "http://localhost:8080"
+      opentripplanner_display_administrative_regions: true
+      opentripplanner_display_amenities: false
+      opentripplanner_display_nearby: true
+      opentripplanner_display_touristic_places: false
+      opentripplanner_init_lat: 45.27
+      opentripplanner_init_lon: -72.74
+      opentripplanner_init_zoom: 10
+
+      otp_proxy_upstream_url: "http://localhost:3000"
+      frontend_config_template_path: "templates/otp-react-redux_config.yaml.j2"
+      agencies:
+        - agencyId: mrc-brome-missisquoi
+          name: MRC Brome-Missisquoi
+        - agencyId: limocar
+          name: Limocar
