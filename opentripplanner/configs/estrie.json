@@ -1,0 +1,45 @@
+{
+    "project_name": "estrie",
+    "output_folder": "../../ansible/files/opentripplanner_data_estrie",
+    "osm_data": {
+        "filename": "estrie.osm.pbf",
+        "base_filename": "quebec-latest.osm.pbf",
+        "url": "https://download.geofabrik.de/north-america/canada/quebec-latest.osm.pbf",
+        "bbox": {
+            "min_lon": -73.57,
+            "min_lat": 45.01,
+            "max_lon": -71.75,
+            "max_lat": 45.60
+        }
+    },
+    "gtfs_data": {
+        "timezone": "America/Montreal",
+        "infos": [
+            {
+                "filename": "gtfs_mrc-brome-missisquoi.zip",
+                "url": "https://github.com/FabmobQC/gtfs-builders/",
+                "is_manual_download": true
+            },
+            {
+                "filename": "gtfs_missisquoi.zip",
+                "url": "https://github.com/FabmobQC/gtfs-builders/",
+                "is_manual_download": true
+            },
+            {
+                "filename": "gtfs_limocar.zip",
+                "url": "https://github.com/FabmobQC/gtfs-builders/",
+                "is_manual_download": true
+            }
+        ]
+    },
+    "otp_configs": [
+        {
+            "filename": "otp-config.json",
+            "content": {
+                "otpFeatures": {
+                    "FlexRouting": true
+                }
+            }
+        }
+    ]
+}
