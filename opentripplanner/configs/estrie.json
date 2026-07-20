@@ -37,6 +37,7 @@
             "filename": "otp-config.json",
             "content": {
                 "otpFeatures": {
+                    "FaresV2" : true,
                     "FlexRouting": true
                 }
             }
