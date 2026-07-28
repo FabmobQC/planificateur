@@ -16,3 +16,7 @@ Replace the placeholders and execute the playbook using the following command:
 # Replace 'your_taxi_api_key' with your montreal taxi api key. If you do not have any, leave an arbitrary string.
 ansible-playbook playbook.yaml -i inventories/planbook.yaml --extra-vars "taxi_api_key=your_taxi_api_key"
 ```
+
+# Bugs
+## error Integrity check failed
+When installing otp-react-redux's dependencies, the integrity check fails for otp-ui. See [here](../README.md) for a temporary solution.

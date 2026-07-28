@@ -214,8 +214,14 @@ systemctl start otp-proxy
 git clone git@github.com:FabmobQC/otp-ui.git
 cd otp-ui
 git checkout fabmob
-pnpm install && pnpm pack-all
-cd ..
+pnpm install && pnpm build-all
+cd packages
+for pkg in endpoints-overlay itinerary-body location-field location-icon; do
+  (
+    cd "$pkg"
+    pnpm pack
+  )
+done
 git clone git@github.com:FabmobQC/otp-react-redux.git
 git checkout fabmob
 ```
@@ -230,12 +236,17 @@ api:
   v2: true
 ```
 
-3. Install dependencies
+3. Delete the @opentripplanner entries from yarn.lock
+Since some otp-ui packages are built locally, their checksums differ, and the integrity checks fail.
+
+Deleting the entire file won't work. It breaks other dependencies.
+
+4. Install dependencies
 ``` shell
 yarn
 ```
 
-4. Start
+5. Start
 ```shell
 env YAML_CONFIG=/var/www/html/planificateur.fabmobqc.ca/otp-react-redux/config-fabmob.yml yarn start
 ```
@@ -245,11 +256,18 @@ env YAML_CONFIG=/var/www/html/planificateur.fabmobqc.ca/otp-react-redux/config-f
 1. Clone the repository
 ``` shell
 mkdir -p /var/www/html/planificateur.fabmobqc.ca
-cd /var/www/html/planificateur.fabmobqc.
+cd /var/www/html/planificateur.fabmobqc.ca
 # Install both otp-ui and otp-react-redux in the same folder
 git clone git@github.com:FabmobQC/otp-ui.git
 git checkout fabmob
-pnpm install && pnpm pack-all
+pnpm install && pnpm build-all
+cd packages
+for pkg in endpoints-overlay itinerary-body location-field location-icon; do
+  (
+    cd "$pkg"
+    pnpm pack
+  )
+done
 cd ..
 git clone git@github.com:FabmobQC/otp-react-redux.git
 git checkout fabmob
@@ -266,17 +284,22 @@ api:
   v2: true
 ```
 
-3. Install dependencies
+3. Delete the @opentripplanner entries from yarn.lock
+Since some otp-ui packages are built locally, their checksums differ, and the integrity checks fail.
+
+Deleting the entire file won't work. It breaks other dependencies.
+
+4. Install dependencies
 ``` shell
 yarn
 ```
 
-4. Build
+5. Build
 ```shell
 env YAML_CONFIG=/var/www/html/planificateur.fabmobqc.ca/otp-react-redux/config-fabmob.yml yarn build
 ```
 
-5. Start nginx
+6. Start nginx
 ``` shell
 systemctl start nginx
 ```
