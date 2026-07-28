@@ -14,6 +14,7 @@ planificateur:
       opentripplanner_init_lat: 45.27
       opentripplanner_init_lon: -72.74
       opentripplanner_init_zoom: 10
+      opentripplanner_default_fare_type: { "mediumId": ["fare_media_carnet", "fare_media_comptant"], "riderCategoryId": ["rider_category_general", "rider_category_general"] }
 
       otp_proxy_upstream_url: "http://localhost:3000"
       frontend_config_template_path: "templates/otp-react-redux_config.yaml.j2"

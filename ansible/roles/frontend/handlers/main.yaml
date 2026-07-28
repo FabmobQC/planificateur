@@ -5,7 +5,7 @@
   changed_when: true
 
 - name: Compile otp-ui # noqa: no-changed-when
-  ansible.builtin.command: "pnpm prepublish"
+  ansible.builtin.command: "pnpm build-all"
   args:
     chdir: "{{ frontend_otp_ui_folder }}"
   notify:
