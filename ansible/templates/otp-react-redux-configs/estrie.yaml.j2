@@ -124,9 +124,9 @@ dateTime:
   dateFormat: MM/dd/yyyy
 
 map:
-  initLat: {{ opentripplanner_init_lat | default(46.4) }}
-  initLon: {{ opentripplanner_init_lon | default(-72.5) }}
-  initZoom: {{ opentripplanner_init_zoom | default(7) }}
+  initLat: 45.27
+  initLon: -72.74
+  initZoom: 10
   # autoFlyOnTripFormUpdate: false
   # navigationControlPosition: "bottom-right"
 
@@ -193,7 +193,10 @@ map:
 # Until you have deployed or subscribed to a geocoder service, a short-term temporary
 # geocoder test account can be obtained from the Pelias maintainers at geocode.earth.
 geocoder:
-  # apiKey: MAPZEN_KEY
+  # apiKey: PELIAS_API_KEY
+  # Pass an array of geocoder result types to control the order in which they are displayed.
+  # The default order is ['STATIONS', 'STOPS', 'OTHER'].
+  geocoderResultsOrder: ['STATIONS', 'STOPS', 'OTHER']
   boundary:
     rect:
       minLon: -76.148987
@@ -264,11 +267,7 @@ modes:
         - mode: BICYCLE
 #       - mode: BICYCLE
 #         qualifier: RENT
-    - iconName: taxi
-      key: taxi
-      label: Taxi
-      modes:
-        - mode: TAXI
+
     - iconName: car
       key: car
       label: Car
@@ -434,7 +433,7 @@ itinerary:
   allowUserAlertCollapsing: true
   # The medium and rider category selected here will be used to render the total itinerary fare
   # when there is only room to display a single fare.
-  defaultFareType: {{ opentripplanner_default_fare_type | default({ "mediumId": null, "riderCategoryId": null }) }}
+  defaultFareType: {'mediumId': ['fare_media_carnet', 'fare_media_comptant'], 'riderCategoryId': ['rider_category_general', 'rider_category_general']}
 
   # List of OTP2 errors to not display. Can be a list
   # mutedErrors:
@@ -540,10 +539,10 @@ transitOperators:
   # Fabmob tip: The actual agencyIds are received with a sort of index. ex: "1:plumobile-boischatel", "2:CITSO"
   # It is actually the name that is used to map the agencies with their routes.
   # In other words, the names have to match "agency_name" in the GTFS, even when there are typos.
-{% for agency in agencies %}
-  - agencyId: {{ agency.agencyId }}
-    name: {{ agency.name }}
-{% endfor %}
+  - agencyId: mrc-brome-missisquoi
+    name: MRC Brome-Missisquoi
+  - agencyId: limocar
+    name: Limocar
 #   - feedId: TriMet
 #     agencyId: PSC
 #     logo: https://d2tyb7byn1fef9.cloudfront.net/psc.png
@@ -695,6 +694,9 @@ language:
         legendGroceryStore: Grocery Store
         legendHealthCenter: Health Center
         legendDefault: Others
+      RouteViewer:
+        clearViewedRoutes: Clear
+        viewAll: View All
       TouristicPlacesViewer:
         shortTitle: Touristic Places
         showTouristicPlaces: Show
@@ -772,6 +774,9 @@ language:
         legendGroceryStore: Épicerie
         legendHealthCenter: Centre de santé
         legendDefault: Others
+      RouteViewer:
+        clearViewedRoutes: Tout masquer
+        viewAll: Tout afficher
       TouristicPlacesViewer:
         shortTitle: Lieux touristiques
         showTouristicPlaces: Afficher
@@ -883,7 +888,7 @@ localization:
 ### !!! WARNING: in some feeds, this may show the long name twice. In some feeds, this may cause layout issues !!!
 #     alwaysShowLongName: false
 fabmob:
-  displayAdministrativeRegions: {{ opentripplanner_display_administrative_regions | default(false) }}
-  displayAmenities: {{ opentripplanner_display_amenities | default(false) }}
-  displayNearby: {{ opentripplanner_display_nearby | default(false) }}
-  displayTouristicPlaces: {{ opentripplanner_display_touristic_places | default(false) }}
+  displayAdministrativeRegions: true
+  displayAmenities: true
+  displayNearby: true
+  displayTouristicPlaces: false
