@@ -29,6 +29,11 @@
                 "filename": "gtfs_limocar.zip",
                 "url": "https://github.com/FabmobQC/gtfs-builders/",
                 "is_manual_download": true
+            },
+            {
+                "filename": "gtfs_sts.zip",
+                "url": "https://gtfs.sts.qc.ca:8443/gtfs/client/GTFS_clients.zip",
+                "is_timezone_incorrect": true
             }
         ]
     },
