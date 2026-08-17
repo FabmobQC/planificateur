@@ -216,7 +216,7 @@ cd otp-ui
 git checkout fabmob
 pnpm install && pnpm build-all
 cd packages
-for pkg in endpoints-overlay itinerary-body location-field location-icon; do
+for pkg in endpoints-overlay itinerary-body location-field location-icon route-viewer-overlay; do
   (
     cd "$pkg"
     pnpm pack
@@ -239,7 +239,7 @@ api:
 3. Delete the @opentripplanner entries from yarn.lock
 Since some otp-ui packages are built locally, their checksums differ, and the integrity checks fail.
 
-Deleting the entire file won't work. It breaks other dependencies.
+Deleting the entire file won't work. It breaks other dependencies. Only the @opentripplanner entries must be deleted.
 
 4. Install dependencies
 ``` shell
@@ -255,14 +255,14 @@ env YAML_CONFIG=/var/www/html/planificateur.fabmobqc.ca/otp-react-redux/config-f
 
 1. Clone the repository
 ``` shell
-mkdir -p /var/www/html/planificateur.fabmobqc.ca
-cd /var/www/html/planificateur.fabmobqc.ca
+mkdir -p /root/planificateur
+cd /root/planificateur
 # Install both otp-ui and otp-react-redux in the same folder
 git clone git@github.com:FabmobQC/otp-ui.git
 git checkout fabmob
 pnpm install && pnpm build-all
 cd packages
-for pkg in endpoints-overlay itinerary-body location-field location-icon; do
+for pkg in endpoints-overlay itinerary-body location-field location-icon route-viewer-overlay; do
   (
     cd "$pkg"
     pnpm pack
@@ -287,7 +287,7 @@ api:
 3. Delete the @opentripplanner entries from yarn.lock
 Since some otp-ui packages are built locally, their checksums differ, and the integrity checks fail.
 
-Deleting the entire file won't work. It breaks other dependencies.
+Deleting the entire file won't work. It breaks other dependencies. Only the @opentripplanner entries must be deleted.
 
 4. Install dependencies
 ``` shell
@@ -296,10 +296,12 @@ yarn
 
 5. Build
 ```shell
-env YAML_CONFIG=/var/www/html/planificateur.fabmobqc.ca/otp-react-redux/config-fabmob.yml yarn build
+env YAML_CONFIG=/root/planificateur/otp-react-redux/config-fabmob.yml yarn build
 ```
 
-6. Start nginx
-``` shell
+6. Deploy
+```shell
+mkdir -p /var/www/html/planificateur.fabmobqc.ca
+mv /root/planificateur/otp-react-redux/dist /var/www/html/planificateur.fabmobqc.ca
 systemctl start nginx
 ```

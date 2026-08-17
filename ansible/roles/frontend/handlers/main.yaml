@@ -20,6 +20,7 @@
     - "{{ frontend_otp_ui_folder }}/packages/itinerary-body"
     - "{{ frontend_otp_ui_folder }}/packages/location-field"
     - "{{ frontend_otp_ui_folder }}/packages/location-icon"
+    - "{{ frontend_otp_ui_folder }}/packages/route-viewer-overlay"
   notify:
     - Install otp-react-redux's dependencies
 
